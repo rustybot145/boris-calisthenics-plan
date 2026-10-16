@@ -19,6 +19,5 @@ All optional, via environment variables (see `.env.example`): `PORT`, `DB_PATH`,
 
 ## Before launch
 
-- Fill in the contact email in `public/legal.html` (marked `[contact email]`).
 - Host on something with a persistent disk for `submissions.db` (Railway, Render, Fly with a volume). Serverless hosts lose the database.
 - Behind a proxy, the rate limiter reads `X-Forwarded-For`; make sure your host sets it.
