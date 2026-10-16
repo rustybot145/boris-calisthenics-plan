@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.*
+!.env.example
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+.DS_Store
+*.log
+# design reference screenshots (third-party images, not ours to publish)
+*.jpeg
+*.jpg
+*.png
