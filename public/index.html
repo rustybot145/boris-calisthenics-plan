@@ -455,11 +455,12 @@ form.addEventListener("submit", async (e) => {
   };
   $("#next").disabled = true;
   try {
-    const req = fetch("/api/plan", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ answers }) })
-      .then(async (r) => { const j = await r.json(); if (!r.ok) throw new Error(j.error); return j; });
+    // the answers ARE the plan link: nothing is stored on the server
+    const qs = new URLSearchParams(Object.entries(answers).map(([k, v]) => [k, Array.isArray(v) ? v.join(",") : String(v)])).toString();
+    const req = fetch(`/api/plan?${qs}`).then(async (r) => { const j = await r.json(); if (!r.ok) throw new Error(j.error); return j; });
     const j = await building(req, answers);
-    history.replaceState(null, "", `/?id=${j.id}`);
-    renderReady(j.id, j.plan);
+    history.replaceState(null, "", `/?${qs}`);
+    renderReady(qs, j.plan);
   } catch (x) {
     show("quiz"); render();
     $("#err").textContent = "Your plan didn't build. Check your connection and try again.";
@@ -504,10 +505,10 @@ function renderPhase(p, i) {
   Figures.scan($("#sessions"));
 }
 
-function renderReady(id, p) {
+function renderReady(qs, p) {
   const ph = p.phases[0];
   const skill = SKILLS[p.skill]?.name ?? "Your skill";
-  const pdf = `/api/pdf?id=${encodeURIComponent(id)}`;
+  const pdf = `/api/pdf?${qs}`;
   $("#readyIn").innerHTML = `
     <div class="ready">
       <span class="pill"><b>Ready</b>Your free plan</span>
@@ -548,9 +549,9 @@ function renderReady(id, p) {
 /* ---------- boot ---------- */
 Figures.scan();
 show("home");
-const id = new URLSearchParams(location.search).get("id");
-if (id) fetch(`/api/plan?id=${encodeURIComponent(id)}`).then((r) => (r.ok ? r.json() : null))
-  .then((j) => (j ? renderReady(id, j.plan) : history.replaceState(null, "", "/"))).catch(() => {});
+const saved = new URLSearchParams(location.search);
+if (saved.has("goal")) fetch(`/api/plan?${saved}`).then((r) => (r.ok ? r.json() : null))
+  .then((j) => (j ? renderReady(saved.toString(), j.plan) : history.replaceState(null, "", "/"))).catch(() => {});
 </script>
 </body>
 </html>

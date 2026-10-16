@@ -1,14 +1,16 @@
 import assert from "node:assert/strict";
-import { validate, buildPlan, renderPdf, levels, SKILLS } from "./plan.js";
+import { validate, fromQuery, buildPlan, renderPdf, levels, SKILLS } from "./plan.js";
 
 const base = { goal: "handstand", check: 0, pushups: 2, pullups: 2, dips: 1, days: 3, minutes: 45, equipment: ["pullup_bar"], weakSpots: ["strength"] };
-const v = validate({ email: " Fan@Example.com ", answers: { ...base, equipment: ["none", "dip_bars"] } });
-assert.equal(v.email, "fan@example.com");
-assert.deepEqual(v.answers.equipment, ["none"]); // "none" wins over real kit
-assert.equal(validate({ answers: base }).email, ""); // email is optional
-assert.throws(() => validate({ email: "nope", answers: base })); // but must be valid if given
+assert.deepEqual(validate({ ...base, equipment: ["none", "dip_bars"] }).equipment, ["none"]); // "none" wins over real kit
 
-const bad = (patch) => assert.throws(() => validate({ email: "a@b.co", answers: { ...base, ...patch } }));
+// answers round-trip through the plan link
+const qs = "goal=front_lever&check=1&pushups=3&pullups=2&dips=1&days=4&minutes=30&equipment=pullup_bar,dip_bars&weakSpots=strength,core";
+assert.deepEqual(validate(fromQuery(new URLSearchParams(qs))), { goal: "front_lever", check: 1, pushups: 3, pullups: 2, dips: 1, days: 4, minutes: 30, equipment: ["pullup_bar", "dip_bars"], weakSpots: ["strength", "core"] });
+assert.throws(() => validate(fromQuery(new URLSearchParams("goal=handstand")))); // incomplete link is rejected
+assert.throws(() => validate(fromQuery(new URLSearchParams(qs.replace("days=4", "days=<script>")))));
+
+const bad = (patch) => assert.throws(() => validate({ ...base, ...patch }));
 bad({ goal: "backflip" });
 bad({ days: 7 });
 bad({ minutes: 25 });

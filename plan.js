@@ -194,11 +194,15 @@ const subset = (v, allowed) => {
   return [...new Set(v)];
 };
 
-export function validate(body) {
-  const a = body?.answers ?? {};
-  // email is optional (the quiz no longer asks for it); validate only when sent
-  const email = String(body?.email ?? "").trim().toLowerCase();
-  if (email && (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 200)) throw new Error("bad email");
+// The plan link carries the answers: /?goal=handstand&check=1&...&equipment=pullup_bar,dip_bars
+export const QUERY_KEYS = ["goal", "check", "pushups", "pullups", "dips", "days", "minutes", "equipment", "weakSpots"];
+export function fromQuery(params) {
+  const a = Object.fromEntries(QUERY_KEYS.map((k) => [k, params.get(k) ?? undefined]));
+  for (const k of ["equipment", "weakSpots"]) a[k] = a[k] ? a[k].split(",") : [];
+  return a;
+}
+
+export function validate(a = {}) {
   const skill = SKILLS[a.goal];
   if (!skill) throw new Error("bad goal");
   if (!LENGTHS.includes(Number(a.minutes))) throw new Error("bad minutes");
@@ -207,18 +211,15 @@ export function validate(body) {
   if (equipment.includes("none")) equipment = ["none"];
   if (skill.needsBar && !equipment.includes("pullup_bar")) throw new Error("front lever needs a pull-up bar");
   return {
-    email,
-    answers: {
-      goal: a.goal,
-      check: int(a.check, 0, skill.checks.length - 1),
-      pushups: int(a.pushups, 0, PUSHUPS.length - 1),
-      pullups: int(a.pullups, 0, PULLUPS.length - 1),
-      dips: int(a.dips, 0, DIPS.length - 1),
-      days: int(a.days, 2, 6),
-      minutes: Number(a.minutes),
-      equipment,
-      weakSpots: subset(a.weakSpots ?? [], WEAK),
-    },
+    goal: a.goal,
+    check: int(a.check, 0, skill.checks.length - 1),
+    pushups: int(a.pushups, 0, PUSHUPS.length - 1),
+    pullups: int(a.pullups, 0, PULLUPS.length - 1),
+    dips: int(a.dips, 0, DIPS.length - 1),
+    days: int(a.days, 2, 6),
+    minutes: Number(a.minutes),
+    equipment,
+    weakSpots: subset(a.weakSpots ?? [], WEAK),
   };
 }
 
@@ -378,7 +379,7 @@ export function buildPlan(a) {
 }
 
 /* ---------- PDF ---------- */
-const FONT = (f) => fileURLToPath(new URL(`./fonts/${f}`, import.meta.url));
+const FONT = (f) => fileURLToPath(new URL(`./public/fonts/${f}`, import.meta.url));
 
 export function renderPdf(plan) {
   const C = { bg: "#070707", card: "#151515", text: "#f4f4f4", dim: "#8e8e8e", lamp: "#ff7a1a", line: "#242424" };
