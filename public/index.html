@@ -82,10 +82,6 @@ h1, h2, h3 { margin: 0; font-weight: 500; letter-spacing: -.035em; line-height: 
   .hero-video, .hero-shade { left: 50%; width: min(100%, 620px); transform: translateX(-50%); }
   .hero-shade { box-shadow: 0 0 0 100vmax var(--bg); }
 }
-.opt.has-pic { padding-left: 10px; }
-.opt .mini { flex: none; width: 52px; height: 66px; border-radius: 12px; overflow: hidden; background: #111; box-shadow: inset 1px 1px 0 rgb(255 222 192 / .14); }
-.opt .mini img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.opt.has-pic .t { flex: 1; }
 .cta { display: flex; flex-direction: column; gap: 2px; align-items: flex-start; text-align: left; width: 100%; min-height: 70px; padding: 12px 64px 12px 26px; }
 .cta b { font-weight: 600; font-size: 18px; letter-spacing: -.01em; }
 .cta small { font-size: 13px; color: #6a5a4c; }
@@ -201,28 +197,15 @@ details.day[open] summary svg { transform: rotate(180deg); }
 .tabs button[aria-selected=true] { color: #1a0b00; font-weight: 600; background: linear-gradient(135deg, #ffe0c2, #ff9a4a 45%, var(--orange) 75%); box-shadow: inset 1px 1px 0 rgb(255 255 255 / .6); }
 .phase-info { margin: 14px 0 4px; font-size: 14px; color: var(--dim); }
 .phase-info b { color: var(--text); font-weight: 500; }
-.exi { list-style: none; display: grid; grid-template-columns: 92px 1fr; gap: 14px; padding: 14px 0; border-top: 1px solid var(--edge); }
-.exi.noclip { grid-template-columns: 1fr; }
-/* clip of Boris doing exactly this move; plays only while on screen */
-.tile { position: relative; display: block; width: 92px; aspect-ratio: 2 / 3; padding: 0; border: 0; border-radius: 14px; overflow: hidden; cursor: pointer; background: #111; box-shadow: inset 0 0 0 1px rgb(255 222 192 / .14); }
-.tile video { width: 100%; height: 100%; object-fit: cover; display: block; }
-.tile .zoom { position: absolute; right: 6px; bottom: 6px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: rgb(0 0 0 / .55); color: #fff; }
-.tile .zoom svg { width: 12px; height: 12px; }
-/* full-size viewer */
-dialog.viewer { padding: 0; border: 0; background: transparent; max-width: min(92vw, 420px); width: 100%; }
-dialog.viewer::backdrop { background: rgb(0 0 0 / .93); }
-.viewer video { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 20px; display: block; background: #111; }
-.viewer .bar2 { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; color: #f4f4f4; }
-.viewer .bar2 b { font-weight: 500; font-size: 17px; }
-.viewer .bar2 a { color: var(--dim); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
-.viewer .x { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgb(0 0 0 / .6); color: #fff; font-size: 22px; line-height: 1; cursor: pointer; }
+.exi { list-style: none; padding: 14px 0; border-top: 1px solid var(--edge); }
 .exi .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
 .exi .nm { font-weight: 500; line-height: 1.25; }
 .exi .ds { color: var(--orange); font-weight: 600; white-space: nowrap; font-size: 15px; }
 .exi .blk { display: block; font-size: 12px; color: var(--dim); margin-bottom: 2px; }
 .exi .cue, .exi .easy { margin: 5px 0 0; font-size: 14px; color: var(--dim); line-height: 1.4; }
 .exi .easy b { color: var(--text); font-weight: 500; }
-.exi a { display: inline-block; margin-top: 6px; font-size: 13px; color: var(--dim); text-decoration: underline; text-underline-offset: 3px; }
+.exi .meta { display: flex; gap: 14px; align-items: center; margin-top: 7px; font-size: 13px; color: var(--dim); }
+.exi .meta a { color: var(--dim); text-decoration: underline; text-underline-offset: 3px; }
 .exlist { margin: 0; padding: 0 16px 4px; }
 .ex { list-style: none; margin: 0; padding: 0 18px 8px; }
 .ex li { display: grid; grid-template-columns: 1fr auto; gap: 2px 14px; padding: 13px 0; border-top: 1px solid var(--edge); }
@@ -251,7 +234,6 @@ dialog.viewer::backdrop { background: rgb(0 0 0 / .93); }
   <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z" fill="currentColor"/></symbol>
-  <symbol id="i-zoom" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
@@ -293,13 +275,13 @@ dialog.viewer::backdrop { background: rgb(0 0 0 / .93); }
 
   <section class="step" data-step="check" hidden>
     <h2 class="lit-text" id="checkTitle">How far are you?</h2>
-    <p class="help">Pick the furthest one you can already do. Your plan starts at the next step.</p>
+    <p class="help">Pick the hardest one you can already do. Your plan starts right after it.</p>
     <div class="opts" id="checks"></div>
   </section>
 
   <section class="step" data-step="numbers" hidden>
     <h2 class="lit-text">Your numbers</h2>
-    <p class="help">Max clean reps in one go. A guess is fine.</p>
+    <p class="help">Most clean reps in one set: full range, no swinging. A good guess is fine; every set in your plan is sized from these.</p>
     <div class="group"><b>Push-ups</b><div class="chips" data-chips="pushups"></div></div>
     <div class="group"><b>Pull-ups</b><div class="chips" data-chips="pullups"></div></div>
     <div class="group"><b>Dips</b><div class="chips" data-chips="dips"></div></div>
@@ -340,12 +322,6 @@ dialog.viewer::backdrop { background: rgb(0 0 0 / .93); }
 <!-- ============ READY ============ -->
 <div id="ready" hidden><div class="app" id="readyIn"></div></div>
 
-<dialog class="viewer" id="viewer" aria-label="Exercise video">
-  <video muted loop playsinline></video>
-  <button class="x" type="button" aria-label="Close">×</button>
-  <div class="bar2"><b></b><a target="_blank" rel="noopener">Full video on YouTube</a></div>
-</dialog>
-
 <script>
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -374,12 +350,12 @@ const show = (id) => {
 
 /* Skill names and checks mirror plan.js */
 const SKILLS = {
-  handstand: { name: "Handstand", checks: ["Nothing yet", "30s chest-to-wall hold", "Crow pose", "Kick up to the wall", "30s wall-assisted hold"] },
-  hspu: { name: "Handstand push-up", checks: ["Nothing yet", "Elevated pike push-ups", "Wall handstand", "Wall handstand push-ups", "Negative handstand push-ups", "Partial handstand push-ups"] },
-  oapu: { name: "One-arm push-up", checks: ["Nothing yet", "Regular push-ups", "Diamond push-ups", "Archer push-ups"] },
-  front_lever: { name: "Front lever", checks: ["Can't do a pull-up yet", "Tuck front lever", "Advanced tuck", "One-leg front lever", "Straddle front lever"] },
-  lsit: { name: "L-sit", checks: ["Nothing yet", "Leg lifts", "Leg compressions", "Tuck L-sit", "One-leg shifts"] },
-  lsit_hs: { name: "L-sit to handstand", checks: ["Nothing yet", "Pike push-ups", "Elevated pike push-ups", "Wall handstand push-ups", "60s wall hold"] },
+  handstand: { name: "Handstand", sub: "Freestanding, off the wall", checks: ["Starting from zero", "Hold a chest-to-wall handstand for 30s", "Hold a crow pose for 15s", "Kick up to the wall with control", "Hold 30s with my back to the wall"] },
+  hspu: { name: "Handstand push-up", sub: "Upside down, head to the floor and back", checks: ["Starting from zero", "15 elevated pike push-ups", "Hold a wall handstand for 10s", "A few wall handstand push-ups", "Slow negative handstand push-ups", "Partial-range handstand push-ups"] },
+  oapu: { name: "One-arm push-up", sub: "Strict, on one arm", checks: ["Starting from zero", "5+ clean push-ups", "5+ diamond push-ups", "5+ archer push-ups each side"] },
+  front_lever: { name: "Front lever", sub: "Body flat under the bar. Needs a pull-up bar", checks: ["Starting from zero", "Hold a tuck front lever", "Hold an advanced tuck front lever", "Hold a one-leg front lever", "Hold a straddle front lever"] },
+  lsit: { name: "L-sit", sub: "Legs straight out, hips off the floor", checks: ["Starting from zero", "10 leg lifts each leg", "10 leg compressions", "Hold a tuck L-sit for 15s", "One-leg L-sit shifts"] },
+  lsit_hs: { name: "L-sit to handstand", sub: "Press up from an L-sit into a handstand", checks: ["Starting from zero", "10 pike push-ups", "10 elevated pike push-ups", "A few wall handstand push-ups", "Hold a wall handstand for 60s"] },
 };
 const CHIPS = {
   pushups: ["0–4", "5–9", "10–19", "20–29", "30+"],
@@ -395,11 +371,9 @@ const opt = (type, name, value, label, sub) => `
   <label class="opt surface"><input type="${type}" name="${name}" value="${value}">
     <span class="t">${esc(label)}${sub ? `<small>${esc(sub)}</small>` : ""}</span><span class="mk">${icon("check")}</span></label>`;
 
-const SKILL_PIC = { handstand: "freestanding-hold", hspu: "handstand-push-ups-wall", oapu: "one-arm-push-up", front_lever: "full-front-lever", lsit: "l-sit", lsit_hs: "l-sit-to-handstand-attempts" };
 $("#goals").innerHTML = Object.entries(SKILLS).map(([k, s]) => `
-  <label class="opt surface has-pic"><input type="radio" name="goal" value="${k}">
-    <span class="mini"><img src="/clips/${SKILL_PIC[k]}.jpg" alt="" loading="lazy" width="52" height="66"></span>
-    <span class="t">${esc(s.name)}</span><span class="mk">${icon("check")}</span></label>`).join("");
+  <label class="opt surface"><input type="radio" name="goal" value="${k}">
+    <span class="t">${esc(s.name)}<small>${esc(s.sub)}</small></span><span class="mk">${icon("check")}</span></label>`).join("");
 $("#kit").innerHTML = KIT.map(([v, l, s]) => opt("checkbox", "equipment", v, l, s)).join("");
 $("#weak").innerHTML = WEAK.map(([v, l, s]) => opt("checkbox", "weakSpots", v, l, s)).join("");
 for (const [name, vals] of Object.entries(CHIPS)) {
@@ -457,7 +431,11 @@ form.addEventListener("change", (e) => {
     if (e.target.value === "none" && e.target.checked) boxes.forEach((b) => b !== e.target && (b.checked = false));
     else if (e.target.checked) boxes[0].checked = false;
   }
-  if (n === "goal") renderChecks();
+  if (n === "goal") {
+    renderChecks();
+    // the front lever needs a bar: tick it for them instead of blocking them at the equipment step
+    if (val("goal") === "front_lever") { const bar = form.querySelector("[name=equipment][value=pullup_bar]"); bar.checked = true; form.querySelector("[name=equipment][value=none]").checked = false; }
+  }
   sync();
   if (AUTO.has(n) && key() === n) setTimeout(() => key() === n && go(1), 240);
 });
@@ -506,45 +484,14 @@ async function building(req, a) {
 }
 
 /* ---------- ready ---------- */
-// exercise name → clip file: "Clap push-ups (ladder)" → "clap-push-ups"
-let CLIPS = {};
-const clipsReady = fetch("/clips/manifest.json").then((r) => r.json()).then((m) => (CLIPS = m)).catch(() => {});
-const ALIAS = { "one-arm-push-ups": "one-arm-push-up" };
-const clipFor = (name) => { const k = name.replace(/\s*\(ladder\)$/, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); const s = ALIAS[k] || k; return CLIPS[s] ? s : null; };
-
-const exList = (list) => `<ul class="exlist">${list.map((e) => { const c = clipFor(e.name); return `
-  <li class="exi${c ? "" : " noclip"}">
-    ${c ? `<button class="tile" type="button" data-clip="${c}" data-name="${esc(e.name)}" aria-label="Watch Boris do ${esc(e.name)}">
-      <video muted loop playsinline preload="none" poster="/clips/${c}.jpg" src="/clips/${c}.mp4"></video><span class="zoom">${icon("zoom")}</span></button>` : ""}
-    <div>
-      <span class="blk">${esc(e.block)}</span>
-      <div class="top"><span class="nm">${esc(e.name)}</span><span class="ds">${esc(e.dose)}</span></div>
-      <p class="cue">${esc(e.cue)}</p>
-      ${e.easier ? `<p class="easy"><b>If too hard:</b> ${esc(e.easier)}</p>` : ""}
-    </div>
-  </li>`; }).join("")}</ul>`;
-
-// play clips only while they're on screen: cheap on phones, no lag
-const io = new IntersectionObserver((es) => es.forEach((e) => {
-  const v = e.target;
-  if (e.isIntersecting) v.play().catch(() => {}); else v.pause();
-}), { threshold: .5 });
-
-// tap a clip → watch it big
-const viewer = $("#viewer"), vVideo = $("video", viewer);
-document.addEventListener("click", (e) => {
-  const t = e.target.closest(".tile");
-  if (!t) return;
-  const c = t.dataset.clip, m = CLIPS[c];
-  vVideo.src = `/clips/${c}.mp4`; vVideo.poster = `/clips/${c}.jpg`;
-  $(".bar2 b", viewer).textContent = t.dataset.name;
-  $(".bar2 a", viewer).href = `https://www.youtube.com/watch?v=${m.src}&t=${m.t}s`;
-  viewer.showModal(); vVideo.play().catch(() => {});
-});
-const closeViewer = () => { vVideo.pause(); viewer.close(); };
-$(".x", viewer).onclick = closeViewer;
-viewer.addEventListener("click", (e) => { if (e.target === viewer) closeViewer(); });
-viewer.addEventListener("close", () => vVideo.pause());
+const exList = (list) => `<ul class="exlist">${list.map((e) => `
+  <li class="exi">
+    <span class="blk">${esc(e.block)}</span>
+    <div class="top"><span class="nm">${esc(e.name)}</span><span class="ds">${esc(e.dose)}</span></div>
+    <p class="cue">${esc(e.cue)}</p>
+    ${e.easier ? `<p class="easy"><b>If too hard:</b> ${esc(e.easier)}</p>` : ""}
+    <div class="meta">${e.rest ? `<span>${esc(e.rest)}</span>` : ""}${e.demo ? `<a href="https://www.youtube.com/watch?v=${encodeURIComponent(e.demo.id)}&amp;t=${+e.demo.t}s" target="_blank" rel="noopener">Watch Boris do it</a>` : ""}</div>
+  </li>`).join("")}</ul>`;
 
 function renderPhase(p, i) {
   const ph = p.phases[i];
@@ -555,11 +502,9 @@ function renderPhase(p, i) {
       <summary><span><small>${esc(s.day)}, every week</small><b>${esc(s.title)}</b></span>${icon("chev")}</summary>
       ${exList(s.exercises)}
     </details>`).join("");
-  $$("#sessions .tile video").forEach((v) => io.observe(v));
 }
 
-async function renderReady(qs, p) {
-  await clipsReady;
+function renderReady(qs, p) {
   const ph = p.phases[0];
   const skill = SKILLS[p.skill]?.name ?? "Your skill";
   const pdf = `/api/pdf?${qs}`;

@@ -77,6 +77,98 @@ const X = {
   planchLean: E("Planche leans", [3, 15, "s"], "Straight arms, lean forward. More lean = better.", "Lean less.", "TT0d1alvT_k"),
 };
 
+// Exact moment Boris does each move in his videos: [YouTube id, seconds]
+const DEMOS = {
+  "Push-ups": ["bQ4I5Qymf7M", 8],
+  "Knee push-ups": ["bQ4I5Qymf7M", 13],
+  "Clap push-ups": ["5oHhDKc_E0Q", 4],
+  "Fist push-ups": ["u2F-PEERqcU", 4],
+  "Finger push-ups": ["u2F-PEERqcU", 7],
+  "Diamond push-ups": ["8SHgz1JYGDM", 15],
+  "Wide push-ups": ["8SHgz1JYGDM", 5],
+  "Archer push-ups": ["u2F-PEERqcU", 18],
+  "Tiger push-ups": ["u2F-PEERqcU", 31],
+  "Tricep extension push-ups": ["mBISugz345s", 17],
+  "One-arm push-up": ["u2F-PEERqcU", 23],
+  "Lean push-ups": ["mBISugz345s", 21],
+  "Planche leans": ["TT0d1alvT_k", 9],
+  "Pike push-ups": ["mBISugz345s", 26],
+  "V-push-ups": ["oW0pluGMDcQ", 12],
+  "Floating push-ups": ["oW0pluGMDcQ", 22],
+  "Elevated pike push-ups": ["O1t5sSFC920", 4],
+  "Elevated pike hold": ["JPe2Qcn2-uo", 9],
+  "Chest-to-wall handstand": ["UhoE45gUSmA", 26],
+  "Wall handstand": ["O1t5sSFC920", 8],
+  "Wall-assisted handstand hold": ["JPe2Qcn2-uo", 40],
+  "Handstand push-ups (wall)": ["O1t5sSFC920", 14],
+  "Negative handstand push-ups": ["O1t5sSFC920", 18],
+  "Handstand push-ups": ["O1t5sSFC920", 25],
+  "Full handstand push-ups": ["O1t5sSFC920", 33],
+  "Kick-ups to the wall": ["JPe2Qcn2-uo", 26],
+  "Falling safely": ["JPe2Qcn2-uo", 33],
+  "Flutter kicks at the wall": ["JPe2Qcn2-uo", 23],
+  "Crow pose": ["JPe2Qcn2-uo", 16],
+  "Freestanding attempts": ["JPe2Qcn2-uo", 47],
+  "Freestanding hold": ["JPe2Qcn2-uo", 48],
+  "Bent arm handstand": ["oBXZ7Fta5qY", 11],
+  "L-sit to handstand attempts": ["c4tOkNwYTOw", 13],
+  "Dips": ["bQ4I5Qymf7M", 28],
+  "Bench or chair dips": ["bQ4I5Qymf7M", 35],
+  "Pull-ups": ["ckyjHYU2HgQ", 5],
+  "Chin-ups": ["ckyjHYU2HgQ", 17],
+  "Wide grip pull-ups": ["ckyjHYU2HgQ", 25],
+  "Australian pull-ups": ["ckyjHYU2HgQ", 12],
+  "Supermans": ["ckyjHYU2HgQ", 31],
+  "Hang holds": ["rpUB4f2rCGE", 4],
+  "Scapula pull-ups": ["rpUB4f2rCGE", 7],
+  "Negative pull-ups": ["rpUB4f2rCGE", 16],
+  "Banded pull-ups": ["rpUB4f2rCGE", 23],
+  "Body rows under a sturdy table": ["8SHgz1JYGDM", 59],
+  "Inverted rows on dip bars": ["8SHgz1JYGDM", 59],
+  "Tuck front lever": ["q8BrVBpNie4", 7],
+  "Tuck front lever raises": ["q8BrVBpNie4", 11],
+  "Advanced tuck front lever": ["q8BrVBpNie4", 15],
+  "Negative advanced tuck": ["q8BrVBpNie4", 19],
+  "One-leg front lever": ["q8BrVBpNie4", 25],
+  "Tuck to one leg": ["q8BrVBpNie4", 29],
+  "Straddle front lever": ["q8BrVBpNie4", 34],
+  "Straddle negatives": ["q8BrVBpNie4", 38],
+  "Full front lever": ["fHPY0iWqi5c", 1],
+  "Leg lifts": ["DMqnc1obSss", 2],
+  "Leg compressions": ["DMqnc1obSss", 7],
+  "Tuck L-sit": ["DMqnc1obSss", 10],
+  "One-leg L-sit shifts": ["DMqnc1obSss", 13],
+  "L-sit": ["DMqnc1obSss", 18],
+  "Seated leg lifts": ["UhoE45gUSmA", 24],
+  "Leg raises": ["l7txpNgTCqE", 530],
+  "Toe sit-ups": ["l7txpNgTCqE", 590],
+  "Hollow body hold": ["T7ejXZD-dxc", 39],
+  "Plank": ["8SHgz1JYGDM", 25],
+  "Reverse plank, one leg lifted": ["l7txpNgTCqE", 410],
+  "Jumping squats": ["l7txpNgTCqE", 40],
+  "Lunges": ["l7txpNgTCqE", 100],
+  "Side lunges": ["l7txpNgTCqE", 165],
+  "Pistol squats": ["8SHgz1JYGDM", 33],
+  "Shrimp squats": ["8SHgz1JYGDM", 45],
+  "Squats": ["bQ4I5Qymf7M", 40],
+};
+const demoFor = (name) => DEMOS[name.replace(/\s*\((ladder|parallettes)\)$/, "")] || (/^one-arm push-ups/i.test(name) ? DEMOS["One-arm push-up"] : null);
+
+// How each rep exercise scales: which of your maxes it's based on, and how hard it is relative to that move.
+// e.g. if you can do 14 push-ups you can do about 0.6 × 14 ≈ 8 diamond push-ups.
+// third number = the fewest reps worth prescribing (easy regressions need enough volume to work)
+const SCALE = {
+  pushups: ["push", 1], kneePushups: ["push", 2, 6], widePushups: ["push", .9], diamond: ["push", .6], archer: ["push", .3],
+  tricepExt: ["push", .45], lean: ["push", .5], pike: ["push", .45], vPush: ["push", .55], chairDips: ["push", .9, 6], dips: ["dip", 1],
+  pullups: ["pull", 1, 2], chinups: ["pull", 1.1, 2], widePull: ["pull", .8, 2], australian: ["row", 1, 5], dipRows: ["row", 1, 5], tableRows: ["row", 1, 5],
+  squats: ["legs", 1, 12], jumpSquats: ["legs", .5, 6], lungesW: ["legs", .5, 6], sideLunges: ["legs", .5, 6], pistol: ["legs", .2], shrimp: ["legs", .25],
+  legRaises: ["core", 1, 8], toeSitups: ["core", 1, 8], seatedLegLifts: ["core", .7, 6], supermans: ["core", 1.2, 10],
+};
+for (const [k, sc] of Object.entries(SCALE)) X[k].scale = sc;
+// Holds with a target that depends on level (Starting out / Building / Basics mastered)
+const HOLDS = { hollow: [15, 25, 35], plank: [30, 45, 60], hang: [15, 25, 30], planchLean: [10, 15, 20], reversePlank: [15, 20, 30] };
+for (const [k, v] of Object.entries(HOLDS)) X[k].hold = v;
+
 /* ---------- skill paths (step-by-step, from his tutorials) ---------- */
 // Each step: name, what to work on, exercises (dose = start dose), Boris's move-on standard.
 const S = (name, about, ex, moveOn, video) => ({ name, about, ex, moveOn, video });
@@ -104,7 +196,7 @@ export const SKILLS = {
          E("Freestanding hold", [5, "max", "s"], "Squeeze everything, push tall.", null, "JPe2Qcn2-uo")],
         "Hold a freestanding handstand for 10 seconds", "JPe2Qcn2-uo"),
     ],
-    checks: ["Nothing yet", "30s chest-to-wall hold", "Crow pose", "Kick up to the wall", "30s wall-assisted hold"],
+    checks: ["Starting from zero", "Hold a chest-to-wall handstand for 30s", "Hold a crow pose for 15s", "Kick up to the wall with control", "Hold 30s with my back to the wall"],
     form: [["Grip the floor", "Fingers spread, press through your fingertips."], ["Push the floor away", "Tall shoulders, ears between your arms."], ["Stack it", "Hands, shoulders, hips, feet in one line."], ["No kicking wild", "Controlled kick, straight legs."], ["Bail safely", "Turn a hand out and step down."]],
   },
   hspu: {
@@ -117,7 +209,7 @@ export const SKILLS = {
       S("Handstand push-ups", "Get lower every try.", [E("Handstand push-ups", [5, 3, ""], "Try to get lower every try.", "Use a pad under your head.", "O1t5sSFC920")], "Boris's standard: 5 × 5", "O1t5sSFC920"),
       S("Full handstand push-ups", "Full range, head to floor and back up.", [E("Full handstand push-ups", [5, "max", ""], "Full range, stay stacked.", "Back to step 5.", "O1t5sSFC920")], "5 full reps", "O1t5sSFC920"),
     ],
-    checks: ["Nothing yet", "Elevated pike push-ups", "Wall handstand", "Wall handstand push-ups", "Negative handstand push-ups", "Partial handstand push-ups"],
+    checks: ["Starting from zero", "15 elevated pike push-ups", "Hold a wall handstand for 10s", "A few wall handstand push-ups", "Slow negative handstand push-ups", "Partial-range handstand push-ups"],
     form: [["Head in front", "Your head lands in front of your hands, not between them."], ["Elbows in", "Don't flare the elbows out wide."], ["Push the floor", "Drive back to straight arms every rep."], ["Get lower every try", "Add range slowly, not all at once."]],
   },
   oapu: {
@@ -128,7 +220,7 @@ export const SKILLS = {
       S("Archer push-ups", "Shift your weight onto one arm.", [X.archer], "5 archer push-ups each side unlocks your first one-arm", "3588bd49dAw"),
       S("One-arm push-up", "Put it all on one arm.", [E("One-arm push-up", [3, "max", "/side"], "Hand turned 45° out, feet wide, shoulder over the hand.", "Archer push-ups.", "0ulBX2QDtfY")], "5 one-arm push-ups each side", "0ulBX2QDtfY"),
     ],
-    checks: ["Nothing yet", "Regular push-ups", "Diamond push-ups", "Archer push-ups"],
+    checks: ["Starting from zero", "5+ clean push-ups", "5+ diamond push-ups", "5+ archer push-ups each side"],
     form: [["Hand at 45°", "Turn the working hand 45° out."], ["Feet wide", "Wide stance gives you a stable base."], ["Shoulder over hand", "Don't let the shoulder drift forward."], ["Hips square", "No twisting to get up."]],
   },
   front_lever: {
@@ -141,7 +233,7 @@ export const SKILLS = {
       S("Straddle front lever", "Legs wide, then work toward full.", [E("Straddle front lever", [4, "max", "s"], "Wide legs, hips up.", "One leg.", "q8BrVBpNie4"), E("Straddle negatives", [3, 3, ""], "Lower slowly in the straddle.", null, "q8BrVBpNie4")], "10 second straddle", "q8BrVBpNie4"),
       S("Full front lever", "Legs together, straight line.", [E("Full front lever", [5, "max", "s"], "Legs together, squeeze everything.", "Straddle.", "fHPY0iWqi5c")], "5 second full front lever", "fHPY0iWqi5c"),
     ],
-    checks: ["Can't do a pull-up yet", "Tuck front lever", "Advanced tuck", "One-leg front lever", "Straddle front lever"],
+    checks: ["Starting from zero", "Hold a tuck front lever", "Hold an advanced tuck front lever", "Hold a one-leg front lever", "Hold a straddle front lever"],
     form: [["Straight arms", "Elbows locked the whole time."], ["Back flat", "Don't round your back in the tuck."], ["Hips up", "Hips in line with shoulders."], ["Pull the bar down", "Drive the bar toward your hips."]],
   },
   lsit: {
@@ -153,7 +245,7 @@ export const SKILLS = {
       S("One-leg shifts", "Straighten one leg at a time.", [E("One-leg L-sit shifts", [3, 6, "/side"], "Extend one leg, switch.", "Tuck.", "DMqnc1obSss")], "6 shifts each side", "DMqnc1obSss"),
       S("L-sit", "Both legs straight.", [X.lsitHold], "20 second L-sit", "DMqnc1obSss"),
     ],
-    checks: ["Nothing yet", "Leg lifts", "Leg compressions", "Tuck L-sit", "One-leg shifts"],
+    checks: ["Starting from zero", "10 leg lifts each leg", "10 leg compressions", "Hold a tuck L-sit for 15s", "One-leg L-sit shifts"],
     form: [["Lock your arms", "Arms straight the whole time."], ["Push the floor away", "Shoulders down, chest up."], ["Legs straight", "Knees locked, toes pointed."], ["Don't lean back", "Stay over your hands."]],
   },
   lsit_hs: {
@@ -165,22 +257,23 @@ export const SKILLS = {
       S("Wall handstand holds", "Work on these every day until you can hold them.", [E("Chest-to-wall handstand", [3, 30, "s"], "Work on these every day.", "Shorter holds.", "Js1c9jC_yAE"), E("Floating push-ups", [3, 5, ""], "Shift forward until your feet get light.", "V-push-ups.", "oW0pluGMDcQ")], "60 second chest-to-wall hold", "Js1c9jC_yAE"),
       S("L-sit to handstand", "Then you can do it.", [E("L-sit to handstand attempts", [5, 1, " tries"], "L-sit, lean forward, press up.", "Frogstand to handstand.", "c4tOkNwYTOw"), X.lsitHold], "One clean L-sit to handstand", "c4tOkNwYTOw"),
     ],
-    checks: ["Nothing yet", "Pike push-ups", "Elevated pike push-ups", "Wall handstand push-ups", "60s wall hold"],
+    checks: ["Starting from zero", "10 pike push-ups", "10 elevated pike push-ups", "A few wall handstand push-ups", "Hold a wall handstand for 60s"],
     form: [["Lean forward", "Shoulders travel past your hands."], ["Straight arms in the press", "Let the shoulders do the work."], ["Hips high first", "Hips over hands before the legs come up."], ["Slow is better", "Control beats momentum."]],
   },
 };
 export const GOALS = Object.fromEntries(Object.entries(SKILLS).map(([k, v]) => [k, v.name]));
 
 /* ---------- push-up ladder ---------- */
+// easiest → hardest; the number is how hard it is relative to a regular push-up
 const LADDER = [
-  ["Clap", "Push hard enough to clap, land soft.", "5oHhDKc_E0Q"],
-  ["Fist", "Knuckles flat, wrists straight.", null],
-  ["Finger", "Up on your fingertips, spread wide.", "pJCpzw5LFpY"],
-  ["Diamond", "Hands together under your chest.", "mBISugz345s"],
-  ["Wide", "Hands wider than shoulders.", "xONk63dM80k"],
-  ["Archer", "Turn the straight-arm hand 90° out.", "3588bd49dAw"],
-  ["Tiger", "From forearms, push up to straight arms.", "mBISugz345s"],
-  ["One-arm", "Hand at 45°, feet wide.", "0ulBX2QDtfY"],
+  ["Wide", "Hands wider than shoulders.", "8SHgz1JYGDM", .9],
+  ["Fist", "Knuckles flat, wrists straight.", "u2F-PEERqcU", .85],
+  ["Diamond", "Hands together under your chest.", "8SHgz1JYGDM", .6],
+  ["Clap", "Push hard enough to clap, land soft.", "5oHhDKc_E0Q", .4],
+  ["Finger", "Up on your fingertips, spread wide.", "u2F-PEERqcU", .45],
+  ["Archer", "Turn the straight-arm hand 90° out.", "u2F-PEERqcU", .3],
+  ["Tiger", "From forearms, push up to straight arms.", "u2F-PEERqcU", .25],
+  ["One-arm", "Hand at 45°, feet wide.", "u2F-PEERqcU", .12],
 ];
 
 /* ---------- validation (trust boundary) ---------- */
@@ -232,8 +325,18 @@ export function levels(a) {
   const push = a.pushups <= 1 ? 1 : a.pushups <= 3 ? (a.pushups === 3 && dips >= 2 ? 3 : 2) : 3;
   const overall = hasBar ? Math.min(push, pull) : push;
   const label = ["", "Starting out", "Building", "Basics mastered"][overall];
-  const rung = a.pushups <= 1 ? -1 : [0, 0, 0, 2, 4][a.pushups];
-  return { push, pull, overall, label, hasBar, rung };
+  // ladder start: 5–9 push-ups → wide, 10–19 → diamond, 20–29 → clap, 30+ → archer
+  const rung = [-1, 0, 2, 3, 5][a.pushups];
+  // estimated max reps from the grouped answers (middle of each range)
+  const pushMax = [3, 7, 14, 24, 32][a.pushups];
+  const pullMax = [0, 2.5, 7, 12, 16, 0][a.pullups];
+  const dipMax = [0, 5, 12, 17, 0][a.dips] || (a.dips === 4 ? pushMax * .4 : 0);
+  const max = {
+    push: pushMax, pull: pullMax, dip: dipMax,
+    row: hasBar && pullMax ? pullMax * 1.5 + 5 : pushMax * .5 + 4,
+    legs: [16, 22, 28][overall - 1], core: [10, 14, 18][overall - 1],
+  };
+  return { push, pull, overall, label, hasBar, rung, max };
 }
 
 /* ---------- plan builder ---------- */
@@ -246,20 +349,47 @@ const DAY_TYPES = {
 };
 const TITLE = { push: "Push", pull: "Pull", legs: "Legs", core: "Core", skill: "Skill" };
 // how many exercises fit: [skill, strength per block, core]
-const BUDGET = { 20: [2, 2, 1], 30: [2, 2, 1], 45: [3, 3, 2], 60: [3, 4, 2] };
+const BUDGET = { 20: [1, 2, 1], 30: [2, 2, 1], 45: [2, 3, 2], 60: [3, 4, 2] };
 
 const dose = ([sets, reps, unit]) => unit === " tries" ? `${sets} tries` : reps === "max" && unit.startsWith("s") ? `${sets} × max hold${unit === "s/side" ? " each side" : ""}` : `${sets} × ${reps}${unit === "s" ? "s" : unit === "s/side" ? "s each side" : unit === "/side" ? " each side" : unit === "/leg" ? " each leg" : unit}`;
-const pack = (e) => ({ name: e.name, dose: dose(e.d), cue: e.cue, easier: e.easier, video: e.video });
+const clamp = (x, lo, hi) => Math.max(lo, Math.min(hi, x));
+// Turn an exercise into a dose for this athlete: ~60% of what they could do in one go,
+// a bit more each phase. Sets follow session length.
+function rx(e, L, a, p, block) {
+  let [sets, reps, unit] = e.d;
+  if (block !== "Skill" && block !== "Daily practice") sets = { 20: 2, 30: 3, 45: 3, 60: 4 }[a.minutes];
+  else if (a.minutes === 20) sets = Math.min(sets, 3);
+  const boost = 1 + .12 * p;
+  if (e.scale) {
+    const [base, f, floor = 3] = e.scale;
+    reps = clamp(Math.round(L.max[base] * f * .6 * boost), floor, unit === "/side" || unit === "/leg" ? 12 : 20);
+  } else if (e.hold) {
+    reps = Math.round(e.hold[L.overall - 1] * boost / 5) * 5;
+    unit = unit === "s/side" ? "s/side" : "s";
+  } else if (unit.startsWith("s") && typeof reps === "number" && block === "Skill") {
+    reps = Math.round(reps * boost / 5) * 5;
+  }
+  return [sets, reps, unit];
+}
+const REST = { Skill: "rest 90s", "Daily practice": "rest 60s", Push: "rest 75s", Pull: "rest 75s", Legs: "rest 60s", Core: "rest 45s", "Weak spot": "rest 60s" };
+function pack(e, ctx, block) {
+  const par = ctx.a.equipment.includes("parallettes") && /l-sit|leg compression/i.test(e.name) && !/handstand/i.test(e.name);
+  const name = par ? `${e.name} (parallettes)` : e.name;
+  const demo = demoFor(e.name);
+  return { name, dose: dose(rx(e, ctx.L, ctx.a, ctx.p, block)), rest: REST[block] || "", cue: e.cue, easier: e.easier, block,
+    video: e.video, demo: demo ? { id: demo[0], t: demo[1] } : null };
+}
 
 function strength(kind, L, a) {
   const dipBars = a.equipment.includes("dip_bars");
   if (kind === "push") {
-    const dip = dipBars ? X.dips : X.chairDips;
-    return { 1: [X.kneePushups, X.vPush, dip, X.tricepExt], 2: [X.pushups, dip, X.diamond, X.pike, X.archer], 3: [X.archer, X.lean, dip, X.pike, X.diamond] }[L.push];
+    // real dips only once you can do a few; otherwise chair dips
+    const dip = dipBars && L.max.dip >= 4 ? X.dips : X.chairDips;
+    return { 1: [X.kneePushups, dip, X.vPush], 2: [X.pushups, dip, X.diamond, X.pike, X.tricepExt], 3: [X.archer, dip, X.pike, X.lean, X.diamond] }[L.push];
   }
   if (kind === "pull") {
     if (!L.hasBar) return [dipBars ? X.dipRows : X.tableRows, X.supermans, X.reversePlank];
-    return { 1: [X.hang, X.scapPulls, X.negPull, X.australian], 2: [X.pullups, X.australian, X.chinups, X.supermans], 3: [X.pullups, X.widePull, X.chinups, X.australian, X.supermans] }[L.pull];
+    return { 1: [X.negPull, X.australian, X.scapPulls, X.hang], 2: [X.pullups, X.australian, X.chinups, X.supermans], 3: [X.pullups, X.australian, X.widePull, X.chinups, X.supermans] }[L.pull];
   }
   if (kind === "legs") return { 1: [X.squats, X.lungesW], 2: [X.jumpSquats, X.lungesW, X.sideLunges], 3: [X.pistol, X.shrimp, X.jumpSquats] }[L.overall];
   return [];
@@ -276,12 +406,12 @@ function extras(a, L) {
   if (a.weakSpots.includes("strength")) {
     // Boris: "Master these first" — push-ups, pull-ups, dips, squats
     const fin = (e) => ({ ...e, d: [2, e.d[1] === "max" ? "max" : e.d[1], e.d[2]] });
-    out.push(fin(L.push === 1 ? X.kneePushups : X.pushups));
-    out.push(fin(L.hasBar ? (L.pull === 1 ? X.negPull : X.pullups) : a.equipment.includes("dip_bars") ? X.dipRows : X.tableRows));
-    out.push(fin(X.squats));
+    out.push({ ...fin(L.push === 1 ? X.kneePushups : X.pushups), area: "push" });
+    out.push({ ...fin(L.hasBar ? (L.pull === 1 ? X.negPull : X.pullups) : a.equipment.includes("dip_bars") ? X.dipRows : X.tableRows), area: "pull" });
+    out.push({ ...fin(X.squats), area: "legs" });
   }
   if (a.weakSpots.includes("balance")) out.push(X.crow);
-  if (a.weakSpots.includes("core")) out.push(X.hollow);
+  if (a.weakSpots.includes("core")) out.push({ ...X.hollow, area: "core" });
   if (a.weakSpots.includes("straight_arm")) out.push(X.planchLean, L.hasBar ? X.scapPulls : X.lsitHold);
   return out;
 }
@@ -311,7 +441,7 @@ export function buildPlan(a) {
   const rung = L.rung;
   const ladder = LADDER.map(([variation, cue, video], i) => ({
     variation, cue, video,
-    prescription: i < rung ? "Done. Use it as a warm-up set." : i === rung ? "3 × 5 clean reps" : i === rung + 1 ? "Try 1–2 reps at the end of push days" : "Locked for now",
+    prescription: i < rung ? "Done. Use it as a warm-up set." : i === rung ? `3 × ${clamp(Math.round(L.max.push * LADDER[i][3] * .6), 3, 15)}, working toward 3 × 5 clean` : i === rung + 1 ? "Try 1–2 reps at the end of push days" : "Locked for now",
     unlockWhen: "5 clean reps, 3 sets",
     current: i === rung,
   }));
@@ -319,23 +449,29 @@ export function buildPlan(a) {
   const dailyPractice = ["handstand", "lsit_hs"].includes(a.goal); // "Work on these every day"
 
   const phases = path.map((step, p) => {
-    const skillEx = step.ex.slice(0, nSkill);
+    const ctx = { L, a, p };
+    const skillEx = step.ex.slice(0, Math.max(nSkill, 1));
+    const seen = {}; // how many times each block type has come up this week → rotate the exercises
     const sessions = types.map((blocks, d) => {
       const exercises = [];
+      const add = (e, block) => { const base = e.name.replace(/\s*\(.*\)$/, ""); if (!exercises.some((x) => x.name.replace(/\s*\(.*\)$/, "") === base)) exercises.push(pack(e, ctx, block)); };
       const title = blocks.map((b) => TITLE[b]).join(" + ");
-      const label = `Day ${d + 1}`;
-      if (blocks.includes("skill")) skillEx.forEach((e) => exercises.push({ ...pack(e), block: "Skill" }));
-      else if (dailyPractice) exercises.push({ ...pack({ ...skillEx[0], d: [2, skillEx[0].d[1], skillEx[0].d[2]] }), block: "Daily practice" });
-      for (const b of blocks.filter((b) => b === "push" || b === "pull" || b === "legs")) {
-        let list = strength(b, L, a).filter(Boolean);
-        if (b === "push" && rung >= 0 && rung < LADDER.length) {
-          list = [{ ...X.pushups, name: `${LADDER[rung][0]} push-ups (ladder)`, d: [3, 5, ""], cue: LADDER[rung][1], easier: "Regular push-ups.", video: LADDER[rung][2] }, ...list];
+      if (blocks.includes("skill")) skillEx.forEach((e) => add(e, "Skill"));
+      else if (dailyPractice) add({ ...skillEx[0], d: [2, skillEx[0].d[1], skillEx[0].d[2]] }, "Daily practice");
+      for (const b of blocks.filter((b) => b === "push" || b === "pull" || b === "legs" || b === "core")) {
+        const n = seen[b] = (seen[b] ?? -1) + 1;
+        const all = b === "core" ? coreBlock(a) : strength(b, L, a);
+        const list = n ? [...all.slice(n % all.length), ...all.slice(0, n % all.length)] : all;
+        const room = b === "core" ? nCore : nStrength;
+        if (b === "push" && rung >= 0) {
+          const [v, cue, video, k] = LADDER[rung];
+          add({ name: `${v} push-ups (ladder)`, d: [3, 5, ""], scale: ["push", k], cue, easier: "Regular push-ups.", video }, "Push");
         }
-        list.slice(0, nStrength).forEach((e) => exercises.push({ ...pack(e), block: TITLE[b] }));
+        for (const e of list) if (exercises.filter((x) => x.block === TITLE[b]).length < room) add(e, TITLE[b]);
       }
-      if (blocks.includes("core")) coreBlock(a).slice(0, nCore).forEach((e) => exercises.push({ ...pack(e), block: "Core" }));
-      if (d % 2 === 0) extra.filter((e) => !exercises.some((x) => x.name === e.name)).forEach((e) => exercises.push({ ...pack(e), block: "Weak spot" }));
-      return { day: label, title, exercises };
+      // weak-spot drills on alternate days, skipping areas already trained today, capped by session length
+      if (d % 2 === 0) extra.filter((e) => !blocks.includes(e.area)).slice(0, { 20: 1, 30: 2, 45: 3, 60: 4 }[a.minutes]).forEach((e) => add(e, "Weak spot"));
+      return { day: `Day ${d + 1}`, title, exercises };
     });
     const w0 = p * 3 + 1;
     return {
@@ -354,21 +490,21 @@ export function buildPlan(a) {
         when: `Week ${w0 + 2}, last training day`,
         tests: [
           { name: step.name, target: step.moveOn },
-          { name: "Max push-ups", target: "Beat your last number" },
-          ...(L.hasBar ? [{ name: "Max pull-ups", target: "Beat your last number" }] : []),
-          ...(rung >= 0 ? [{ name: `${LADDER[Math.min(rung, 7)][0]} push-ups`, target: "5 clean reps unlocks the next rung" }] : []),
+          { name: "Max push-ups", target: `Aim for ${Math.ceil(L.max.push * (1 + .15 * (p + 1)))}` },
+          ...(L.hasBar ? [{ name: "Max pull-ups", target: L.max.pull ? `Aim for ${Math.ceil(L.max.pull * (1 + .15 * (p + 1)))}` : p ? "Aim for your first clean rep" : "Slow negative: aim for 5 seconds down" }] : []),
+          ...(rung >= 0 ? [{ name: `${LADDER[rung][0]} push-ups`, target: "3 × 5 clean reps unlocks the next rung" }] : []),
         ],
       },
     };
   });
 
-  const started = a.check > 0 ? `Already done: ${skill.checks[a.check].toLowerCase()}. So we skip ahead. ` : "";
+  const started = a.check > 0 ? `You can already do this: ${skill.checks[a.check].replace(/^./, (c) => c.toLowerCase())}. So we skip ahead. ` : "";
   const basics = L.overall === 1 ? " Before big skills, master the basics: 20–30 push-ups, 10–15 pull-ups, 10–15 dips. Your plan builds those at the same time." : "";
   return {
     title: `Your ${skill.name.toLowerCase()} plan`,
     skill: a.goal, img: skill.img, skillVideo: yt(skill.video),
     level: L.overall, levelLabel: L.label,
-    intro: `${started}You start at step ${start + 1}: ${skill.steps[start].name.toLowerCase()}. ${a.days} days a week, ${a.minutes} minutes a session.${basics}`,
+    intro: `${started}You start at step ${start + 1}: ${skill.steps[start].name.toLowerCase()}. Every set is sized to your numbers (about ${PUSHUPS[a.pushups]} push-ups${L.hasBar ? `, ${PULLUPS[a.pullups]} pull-ups` : ""}), ${a.days} days a week, ${a.minutes} minutes a session.${basics}`,
     totalWeeks: 9,
     warmup: warmup(a, a.minutes),
     phases,
@@ -407,7 +543,7 @@ export function renderPdf(plan) {
     const afterName = doc.y;
     doc.font("display").fontSize(11).fillColor(C.lamp).text(e.dose, X + W - 108, y, { width: 108, align: "right" });
     doc.y = Math.max(afterName, y + 14);
-    body(e.cue, C.dim, 8.5);
+    body(`${e.cue}${e.rest ? `  ${e.rest[0].toUpperCase()}${e.rest.slice(1)}.` : ""}`, C.dim, 8.5);
     if (e.easier) doc.font("bold").fontSize(8.5).fillColor(C.lamp).text("If too hard: ", X, doc.y, { continued: true }).font("body").fillColor(C.dim).text(e.easier);
     gap(7); rule(); gap(8);
   }

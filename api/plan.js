@@ -6,6 +6,6 @@ export default function handler(req, res) {
   try { answers = validate(fromQuery(new URL(req.url, "http://x").searchParams)); }
   catch (e) { res.statusCode = 400; res.setHeader("Content-Type", "application/json"); return res.end(JSON.stringify({ error: e.message })); }
   res.setHeader("Content-Type", "application/json");
-  res.setHeader("Cache-Control", "public, max-age=3600"); // same answers → same plan
+  res.setHeader("Cache-Control", "no-store"); // always the current engine; plans are cheap to build
   res.end(JSON.stringify({ plan: buildPlan(answers) }));
 }

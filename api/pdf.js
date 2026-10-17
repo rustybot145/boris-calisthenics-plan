@@ -8,6 +8,6 @@ export default async function handler(req, res) {
   const pdf = await renderPdf(buildPlan(answers));
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", 'attachment; filename="boris-plan.pdf"');
-  res.setHeader("Cache-Control", "public, max-age=3600");
+  res.setHeader("Cache-Control", "no-store");
   res.end(pdf);
 }
