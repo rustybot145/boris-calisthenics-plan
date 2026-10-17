@@ -65,7 +65,14 @@ em { font-style: italic; }
 .hero-video.ready { opacity: 1; scale: 1; }
 .shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgb(7 7 7 / .72) 0%, rgb(7 7 7 / .1) 18%, rgb(7 7 7 / .15) 30%, rgb(7 7 7 / .7) 50%, var(--bg) 74%); }
 #home .site { position: relative; z-index: 2; }
-.hero { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; max-width: 560px; margin: 0 auto; padding: 0 var(--gut) calc(26px + env(safe-area-inset-bottom)); }
+/* warm light beaming down from the top-left corner */
+#home::before, #home::after { content: ""; position: absolute; z-index: 1; pointer-events: none; }
+#home::before { inset: 0; background: radial-gradient(75% 50% at 0% 0%, rgb(255 122 40 / .42), rgb(255 122 40 / .12) 45%, transparent 75%); animation: glow 6s ease-in-out infinite alternate; }
+#home::after { top: -12%; left: -24%; width: 62%; height: 135%; transform-origin: 0 0; rotate: -30deg; background: linear-gradient(90deg, transparent, rgb(255 150 70 / .18) 35%, rgb(255 185 120 / .32) 50%, rgb(255 150 70 / .18) 65%, transparent); -webkit-mask-image: linear-gradient(180deg, #000, transparent 80%); mask-image: linear-gradient(180deg, #000, transparent 80%); animation: shaft 9s ease-in-out infinite alternate; }
+@keyframes glow { from { opacity: .75; } to { opacity: 1; } }
+@keyframes shaft { from { opacity: .6; transform: rotate(-3deg); } to { opacity: 1; transform: rotate(3deg); } }
+#home h1 em { color: var(--warm); }
+.hero { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; max-width: 560px; margin: 0 auto; padding: 0 var(--gut) calc(26px + env(safe-area-inset-bottom)); }
 .hero h1 { font-size: clamp(2.15rem, 9.4vw, 3.4rem); margin: 14px 0 14px; }
 .hero h1 em { color: var(--ink); }
 .hero .btn { margin-top: 24px; }
@@ -144,28 +151,17 @@ em { font-style: italic; }
 
 /* ---------- plan ---------- */
 .ready { padding: 8px 0 40px; }
-.ready h1 { font-size: clamp(2.2rem, 9.6vw, 3.2rem); margin: 14px 0 16px; }
-.ready .intro { color: var(--mute); }
-.stats { display: grid; grid-template-columns: repeat(3, 1fr); margin: 26px 0 0; border-block: 1px solid var(--line); }
-.stats div { padding: 16px 0 14px; }
-.stats div + div { padding-left: 16px; border-left: 1px solid var(--line); }
-.stats b { display: block; font: 400 1.85rem/1 var(--display); }
-.stats span { font-size: .8125rem; color: var(--mute); }
-.level { margin-top: 14px; font-size: .875rem; color: var(--mute); }
-.level b { color: var(--ink); font-weight: 500; }
+.ready h1 { font-size: clamp(2.2rem, 9.6vw, 3.2rem); margin: 14px 0 18px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.tags li { padding: 6px 12px; border: 1px solid var(--line-2); border-radius: 999px; font-size: .8125rem; color: #d6d2cc; }
 .dl { margin-top: 24px; }
-.dl .fine { margin-top: 10px; text-align: center; }
 
-.sect { margin-top: 52px; }
+.sect { margin-top: 40px; }
 .sect > h2 { font-size: 1.75rem; margin-bottom: 14px; }
-.path { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-.path li { display: grid; grid-template-columns: 34px 1fr; gap: 2px 12px; padding: 16px 0; border-bottom: 1px solid var(--line); }
-.path .n { grid-row: span 2; font: italic 400 1.4rem/1 var(--display); color: var(--mute); }
-.path b { font-weight: 500; }
-.path span { font-size: .875rem; color: var(--mute); }
 
 .tabs { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
-.tabs button { position: relative; padding: 12px 0 13px; border: 0; background: none; color: var(--dim); font-size: .875rem; font-weight: 500; cursor: pointer; }
+.tabs button { position: relative; min-width: 0; padding: 12px 4px 13px; border: 0; background: none; color: var(--dim); font-size: .875rem; font-weight: 500; cursor: pointer; }
+.tabs button small { display: block; margin-top: 3px; overflow: hidden; font-size: .75rem; font-weight: 400; color: var(--dim); white-space: nowrap; text-overflow: ellipsis; }
 .tabs button[aria-selected=true] { color: var(--ink); }
 .tabs button[aria-selected=true]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--ink); }
 .phase-info { margin: 16px 0 6px; font-size: .875rem; color: var(--mute); }
@@ -237,8 +233,8 @@ details.day[open] .exi:nth-child(n+4) { animation-delay: .12s; }
 .opt:has(input:checked)::after { animation: sweep .9s var(--out); }
 .chip span { border-color: rgb(255 150 90 / .18) var(--line) var(--line) rgb(255 150 90 / .18); }
 .chip input:checked + span { background: linear-gradient(110deg, var(--warm), var(--ink) 58%); box-shadow: -8px -4px 24px -10px rgb(255 122 40 / .6); }
-#quiz .btn { position: relative; overflow: hidden; background: linear-gradient(100deg, var(--warm), var(--ink) 42%); box-shadow: -14px -4px 40px -16px rgb(255 122 40 / .75); }
-#quiz .btn::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / .55) 50%, transparent 70%); transform: translateX(-110%); animation: sweep 5s ease-in-out 1.2s infinite; }
+#home .btn, #quiz .btn { position: relative; overflow: hidden; background: linear-gradient(100deg, var(--warm), var(--ink) 42%); box-shadow: -14px -4px 40px -16px rgb(255 122 40 / .75); }
+#home .btn::after, #quiz .btn::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / .55) 50%, transparent 70%); transform: translateX(-110%); animation: sweep 5s ease-in-out 1.2s infinite; }
 #quiz .btn:disabled { box-shadow: none; }
 #quiz .btn:disabled::after { animation: none; }
 .ticks li.on i { background: linear-gradient(135deg, var(--warm), var(--ink) 65%); box-shadow: -4px -2px 14px -4px rgb(255 122 40 / .6); }
@@ -519,7 +515,7 @@ const exList = (list) => `<ul class="exlist">${list.map((e) => `
 function renderPhase(p, i) {
   const ph = p.phases[i];
   $$("#tabs button").forEach((b, j) => b.setAttribute("aria-selected", String(j === i)));
-  $("#phaseInfo").innerHTML = `<b>${esc(ph.name)}.</b> Move on when: ${esc(ph.moveOn)}`;
+  $("#phaseInfo").innerHTML = `<b>${esc(ph.name)}.</b> ${esc(ph.goal)}<br>Move on when: ${esc(ph.moveOn)}`;
   $("#sessions").innerHTML = ph.sessions.map((s, j) => `
     <details class="day"${j === 0 ? " open" : ""}>
       <summary><span><small>${esc(s.day)}, every week</small><b>${esc(s.title)}</b></span>${icon("chev")}</summary>
@@ -536,28 +532,16 @@ function renderReady(qs, p) {
     <div class="ready">
       <span class="eyebrow">Your plan</span>
       <h1>${esc(skill)}, <em>in ${WORDS[p.totalWeeks] ?? p.totalWeeks} weeks.</em></h1>
-      <p class="intro">${esc(p.intro)}</p>
-      <div class="stats">
-        <div><b>${p.totalWeeks}</b><span>weeks</span></div>
-        <div><b>${ph.sessions.length}</b><span>days a week</span></div>
-        <div><b>${p.phases.length}</b><span>steps</span></div>
-      </div>
-      <p class="level">Level ${p.level}: <b>${esc(p.levelLabel)}</b></p>
-      <div class="dl">
-        <a class="btn block" href="${pdf}" download="boris-plan.pdf">${icon("down")}Download the PDF</a>
-        <p class="fine">All 9 weeks. Save it to your phone.</p>
-      </div>
-
-      <section class="sect">
-        <h2>The <em>three steps</em></h2>
-        <ol class="path">${p.phases.map((x, i) => `
-          <li><span class="n">${esc((x.name.match(/^Step (\d+)/) || [, i + 1])[1])}</span>
-          <b>${esc(x.name.replace(/^Step \d+: /, ""))}</b><span>Weeks ${esc(x.weeks)}. Move on when: ${esc(x.moveOn)}</span></li>`).join("")}</ol>
-      </section>
+      <ul class="tags">
+        <li>Level ${p.level} · ${esc(p.levelLabel)}</li>
+        <li>${ph.sessions.length} days a week</li>
+        <li>${+new URLSearchParams(qs).get("minutes")} min</li>
+      </ul>
+      <a class="btn block dl" href="${pdf}" download="boris-plan.pdf">${icon("down")}Download the PDF</a>
 
       <section class="sect">
         <h2>Your <em>workouts</em></h2>
-        <div class="tabs" id="tabs" role="tablist">${p.phases.map((x, i) => `<button type="button" role="tab" data-ph="${i}">Weeks ${esc(x.weeks)}</button>`).join("")}</div>
+        <div class="tabs" id="tabs" role="tablist">${p.phases.map((x, i) => `<button type="button" role="tab" data-ph="${i}">Weeks ${esc(x.weeks)}<small>${esc(x.name.replace(/^Step \d+: /, ""))}</small></button>`).join("")}</div>
         <p class="phase-info" id="phaseInfo"></p>
         <div id="sessions"></div>
       </section>

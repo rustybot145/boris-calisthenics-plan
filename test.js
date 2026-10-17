@@ -68,7 +68,7 @@ assert.match(buildPlan({ ...base, check: 2 }).phases[0].name, /^Step 3: Kick up/
 assert.match(buildPlan({ ...base, goal: "front_lever", check: 2, pullups: 0 }).phases[0].name, /^Step 1: Your first pull-ups/);
 assert.match(buildPlan({ ...base, goal: "front_lever", check: 1, pullups: 3 }).phases[0].name, /^Step 3: Advanced tuck/);
 // final step pads with "own it" phases
-assert.match(buildPlan({ ...base, goal: "oapu", check: 3 }).phases[2].name, /own it/);
+assert.deepEqual(buildPlan({ ...base, goal: "oapu", check: 3 }).phases.map((x) => x.name.split(": ").slice(2).join()), ["", "own it", "polish it"]);
 
 const pdf = await renderPdf(buildPlan(base));
 assert.equal(pdf.subarray(0, 4).toString(), "%PDF");

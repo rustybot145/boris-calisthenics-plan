@@ -434,7 +434,8 @@ export function buildPlan(a) {
   // and fewer than 5 pull-ups always starts on the base
   if (a.goal === "front_lever") start = a.pullups <= 1 ? 0 : Math.min(a.check + 1, skill.steps.length - 1);
   const path = skill.steps.slice(start, start + 3);
-  while (path.length < 3) path.push({ ...path.at(-1), name: `${path.at(-1).name}: own it`, about: "Same skill, longer holds and cleaner reps.", ownIt: true });
+  const last = path.at(-1);
+  for (const tag of ["own it", "polish it"]) if (path.length < 3) path.push({ ...last, name: `${last.name}: ${tag}`, about: "Same skill, longer holds and cleaner reps.", ownIt: true });
 
   const [nSkill, nStrength, nCore] = BUDGET[a.minutes];
   const types = DAY_TYPES[a.days];
