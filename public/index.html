@@ -3,15 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preload" href="/fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#070707">
 <title>Boris Calisthenics: Free 9-Week Skill Plan</title>
 <meta name="description" content="Get your full workout plan to unlock your first calisthenics skill. Six quick questions, every set sized to your numbers, built from Boris's tutorials. Free.">
 <style>
-@font-face { font-family: "Instrument Serif"; font-style: normal; font-display: swap; src: url(/fonts/InstrumentSerif-Regular.ttf) format("truetype"); }
-@font-face { font-family: "Instrument Serif"; font-style: italic; font-display: swap; src: url(/fonts/InstrumentSerif-Italic.ttf) format("truetype"); }
-@font-face { font-family: "Geist"; font-weight: 400; font-display: swap; src: url(/fonts/Geist-Regular.ttf) format("truetype"); }
-@font-face { font-family: "Geist"; font-weight: 500; font-display: swap; src: url(/fonts/Geist-Medium.ttf) format("truetype"); }
-@font-face { font-family: "Geist"; font-weight: 600; font-display: swap; src: url(/fonts/Geist-SemiBold.ttf) format("truetype"); }
+@font-face { font-family: "Instrument Serif"; font-style: normal; font-display: swap; src: url(/fonts/InstrumentSerif-Regular.woff2) format("woff2"); }
+@font-face { font-family: "Instrument Serif"; font-style: italic; font-display: swap; src: url(/fonts/InstrumentSerif-Italic.woff2) format("woff2"); }
+@font-face { font-family: "Geist"; font-weight: 400; font-display: swap; src: url(/fonts/Geist-Regular.woff2) format("woff2"); }
+@font-face { font-family: "Geist"; font-weight: 500; font-display: swap; src: url(/fonts/Geist-Medium.woff2) format("woff2"); }
+@font-face { font-family: "Geist"; font-weight: 600; font-display: swap; src: url(/fonts/Geist-SemiBold.woff2) format("woff2"); }
 
 /* Boris Calisthenics: black and warm white. The footage brings the light; nothing else does. */
 :root {
@@ -67,8 +70,8 @@ em { font-style: italic; }
 #home .site { position: relative; z-index: 2; }
 /* warm light beaming down from the top-left corner */
 #home::before, #home::after { content: ""; position: absolute; z-index: 1; pointer-events: none; }
-#home::before { inset: 0; background: radial-gradient(75% 50% at 0% 0%, rgb(255 122 40 / .42), rgb(255 122 40 / .12) 45%, transparent 75%); animation: glow 6s ease-in-out infinite alternate; }
-#home::after { top: -12%; left: -24%; width: 62%; height: 135%; transform-origin: 0 0; rotate: -30deg; background: linear-gradient(90deg, transparent, rgb(255 150 70 / .18) 35%, rgb(255 185 120 / .32) 50%, rgb(255 150 70 / .18) 65%, transparent); -webkit-mask-image: linear-gradient(180deg, #000, transparent 80%); mask-image: linear-gradient(180deg, #000, transparent 80%); animation: shaft 9s ease-in-out infinite alternate; }
+#home::before { inset: 0; background: radial-gradient(75% 50% at 0% 0%, rgb(255 122 40 / .42), rgb(255 122 40 / .12) 45%, transparent 75%); animation: glow 6s ease-in-out infinite alternate; will-change: opacity; }
+#home::after { top: -12%; left: -24%; width: 62%; height: 135%; transform-origin: 0 0; rotate: -30deg; background: radial-gradient(50% 85% at 50% 0%, rgb(255 185 120 / .3), rgb(255 150 70 / .13) 45%, transparent); animation: shaft 9s ease-in-out infinite alternate; will-change: transform, opacity; }
 @keyframes glow { from { opacity: .75; } to { opacity: 1; } }
 @keyframes shaft { from { opacity: .6; transform: rotate(-3deg); } to { opacity: 1; transform: rotate(3deg); } }
 #home h1 em { color: var(--warm); }
@@ -89,12 +92,12 @@ em { font-style: italic; }
 .rise { animation: rise 1.1s var(--out) both; }
 .rise.d2 { animation-delay: .14s; } .rise.d3 { animation-delay: .28s; }
 #home .site { animation: fade 1s ease both; }
-@keyframes rise { from { opacity: 0; transform: translateY(18px); filter: blur(4px); } }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
 @keyframes fade { from { opacity: 0; } }
 
 /* ---------- quiz ---------- */
 .app { min-height: 100svh; width: 100%; max-width: 560px; margin: 0 auto; padding: 0 var(--gut); display: flex; flex-direction: column; }
-.qbar { position: sticky; top: 0; z-index: 3; margin: 0 calc(var(--gut) * -1); padding: 0 var(--gut); background: rgb(7 7 7 / .9); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.qbar { position: sticky; top: 0; z-index: 3; margin: 0 calc(var(--gut) * -1); padding: 0 var(--gut); background: rgb(7 7 7 / .94); }
 .qbar .row { display: flex; align-items: center; justify-content: space-between; height: 60px; }
 .back { display: inline-flex; align-items: center; gap: 6px; margin-left: -6px; padding: 8px 6px; border: 0; background: none; color: var(--mute); font-size: .875rem; cursor: pointer; }
 .back svg { width: 16px; height: 16px; }
@@ -219,8 +222,8 @@ details.day[open] .exi:nth-child(n+4) { animation-delay: .12s; }
 .phase-info { animation: fade .4s ease both; }
 
 /* ---------- warm light through the quiz: comes in from the left, reflects off what you touch ---------- */
-#quiz::before, #building::before { content: ""; position: fixed; z-index: -1; pointer-events: none; top: -25vh; left: -55vw; width: 120vw; height: 120vh; background: radial-gradient(closest-side, rgb(255 122 40 / .24), rgb(255 122 40 / .08) 45%, transparent 76%); animation: lamp 18s ease-in-out infinite; }
-#quiz::after, #building::after { content: ""; position: fixed; z-index: -1; pointer-events: none; top: 35vh; left: 30vw; width: 95vw; height: 75vh; background: radial-gradient(closest-side, rgb(255 105 30 / .17), rgb(255 105 30 / .05) 50%, transparent 78%); animation: drift 23s ease-in-out infinite; }
+#quiz::before, #building::before { content: ""; position: fixed; z-index: -1; pointer-events: none; top: -25vh; left: -55vw; width: 120vw; height: 120vh; background: radial-gradient(closest-side, rgb(255 122 40 / .24), rgb(255 122 40 / .08) 45%, transparent 76%); animation: lamp 18s ease-in-out infinite; will-change: transform, opacity; }
+#quiz::after, #building::after { content: ""; position: fixed; z-index: -1; pointer-events: none; top: 35vh; left: 30vw; width: 95vw; height: 75vh; background: radial-gradient(closest-side, rgb(255 105 30 / .17), rgb(255 105 30 / .05) 50%, transparent 78%); animation: drift 23s ease-in-out infinite; will-change: transform, opacity; }
 /* two lights wander on different loops so the pattern never visibly repeats */
 @keyframes lamp { 0%, 100% { opacity: .75; transform: translate3d(0, 0, 0) scale(1); } 25% { opacity: 1; transform: translate3d(22vw, 18vh, 0) scale(1.1); } 50% { opacity: .85; transform: translate3d(38vw, -4vh, 0) scale(.95); } 75% { opacity: 1; transform: translate3d(8vw, 36vh, 0) scale(1.12); } }
 @keyframes drift { 0%, 100% { opacity: .6; transform: translate3d(0, 0, 0) scale(1); } 33% { opacity: 1; transform: translate3d(-40vw, 12vh, 0) scale(1.15); } 66% { opacity: .8; transform: translate3d(-10vw, -30vh, 0) scale(.9); } }
@@ -240,10 +243,15 @@ details.day[open] .exi:nth-child(n+4) { animation-delay: .12s; }
 #quiz .btn:disabled::after { animation: none; }
 .ticks li.on i { background: linear-gradient(135deg, var(--warm), var(--ink) 65%); box-shadow: -4px -2px 14px -4px rgb(255 122 40 / .6); }
 /* landing button: glow breathes, warm light slides across, shine passes, arrow nudges, all on one 3.2s beat */
-#home .btn { background-image: linear-gradient(100deg, var(--warm), var(--ink) 25%); background-size: 170% 100%; animation: breathe 3.2s ease-in-out 1.4s infinite; }
+#home .btn { isolation: isolate; background: var(--ink); box-shadow: none; }
+#home .btn::before { content: ""; position: absolute; z-index: -1; inset: 0 -40% 0 0; background: linear-gradient(100deg, var(--warm), transparent 38%); animation: warm 3.2s ease-in-out 1.4s infinite; }
+.cta { position: relative; }
+.cta::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 52px; border-radius: 999px; box-shadow: -18px -6px 58px -12px rgb(255 122 40 / .95); animation: breathe 3.2s ease-in-out 1.4s infinite; }
 #home .btn::after { animation: sweep 3.2s ease-in-out 1.4s infinite; }
 #home .btn svg { animation: nudge 3.2s var(--out) 1.4s infinite; }
-@keyframes breathe { 0%, 100% { background-position: 0% 0; box-shadow: -14px -4px 40px -16px rgb(255 122 40 / .7); } 50% { background-position: 45% 0; box-shadow: -18px -6px 58px -12px rgb(255 122 40 / .95); } }
+/* transform and opacity only, so the phone's GPU does the work and nothing repaints */
+@keyframes warm { 0%, 100% { transform: none; } 50% { transform: translateX(-22%); } }
+@keyframes breathe { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
 @keyframes nudge { 0%, 55%, 100% { transform: none; } 70% { transform: translateX(5px); } 85% { transform: translateX(-1px); } }
 @keyframes sweep { 0% { transform: translateX(-110%); } 30%, 100% { transform: translateX(110%); } }
 
@@ -274,7 +282,7 @@ details.day[open] .exi:nth-child(n+4) { animation-delay: .12s; }
       <h1>Get your full workout plan <em>to unlock your first skill.</em></h1>
       <p class="lede">Six quick questions. Every set is sized to your numbers and built from Boris's own tutorials.</p>
     </div>
-    <div class="rise d2">
+    <div class="rise d2 cta">
       <button class="btn block" data-start>Get my free plan <svg><use href="#i-arrow"/></svg></button>
       <p class="fine" style="text-align:center">Less than 2 minutes.</p>
     </div>
