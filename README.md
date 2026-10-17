@@ -1,6 +1,6 @@
 # Boris Calisthenics: free skill plan
 
-A 6-question quiz that builds a free 9-week calisthenics plan, shows every workout with an animated demo, and lets you download it as a PDF. Rule-based: no AI, no payments, no accounts, no database.
+A 6-question quiz that builds a free 9-week calisthenics plan, shows every exercise with a short clip of Boris doing it, and lets you download it as a PDF. Rule-based: no AI, no payments, no accounts, no database.
 
 ## Deploy (Vercel)
 
@@ -24,6 +24,6 @@ npm test               # runs every skill × step × schedule through the plan e
 
 - `plan.js`: the plan engine. Exercises, progressions, sets/reps, "if too hard" options and move-on standards, taken from Boris's YouTube Shorts (video ids next to each entry). Grouped quiz answers → level → workouts. Also renders the PDF.
 - `api/`: the two serverless functions.
-- `public/index.html`: the whole frontend (landing, quiz, plan + download). `public/figures.js`: the animated exercise figures. `public/legal.html`: terms, health disclaimer and privacy.
+- `public/index.html`: the whole frontend (landing, quiz, plan + download). `public/clips/`: short loops of Boris doing each exercise, cut from his videos (`manifest.json` maps each clip to its source video and timestamp). `public/legal.html`: terms, health disclaimer and privacy.
 - `public/fonts/`: Geist (SIL Open Font License, see `OFL.txt`), self-hosted so no visitor data goes to third parties.
 - `server.js`: local runner that mimics Vercel.

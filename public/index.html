@@ -71,18 +71,21 @@ h1, h2, h3 { margin: 0; font-weight: 500; letter-spacing: -.035em; line-height: 
 .anim .quote .w { opacity: 0; filter: blur(8px); transform: translateY(.35em); animation: rise .8s cubic-bezier(.2, .7, .2, 1) forwards; animation-delay: calc(var(--i) * 75ms + 120ms); }
 @keyframes rise { to { opacity: 1; filter: blur(0); transform: none; } }
 
-.stage { flex: 1; min-height: 220px; display: grid; place-items: center; margin: 4px 0 10px; }
-.stage svg { width: min(100%, 330px); height: auto; overflow: visible; filter: drop-shadow(14px 24px 18px rgb(0 0 0 / .75)); }
-.anim .stage svg { opacity: 0; transform: translateY(-26px); animation: drop 1.1s cubic-bezier(.2, .8, .2, 1) forwards; animation-delay: calc(var(--n) * 75ms + 300ms); }
-@keyframes drop { to { opacity: 1; transform: none; } }
-svg.fig { display: block; overflow: visible; }
-svg.fig .far { filter: brightness(.5); }
-.stage { min-height: 270px; }
-.stage svg.fig { width: 100%; height: 100%; max-height: 48svh; filter: drop-shadow(10px 18px 14px rgb(0 0 0 / .75)); }
-.opt.has-fig { padding-left: 10px; }
-.opt .mini { flex: none; width: 66px; height: 55px; border-radius: 12px; background: linear-gradient(135deg, #221e1b, #0c0c0c 70%); box-shadow: inset 1px 1px 0 rgb(255 222 192 / .12); }
-.opt .mini svg { width: 100%; height: 100%; filter: drop-shadow(2px 4px 3px rgb(0 0 0 / .7)); }
-.opt.has-fig .t { flex: 1; }
+/* Boris pressing to handstand, full-screen behind the offer. Shaded top and bottom so the text reads. */
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; z-index: 0; }
+.hero-shade { position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgb(7 7 7 / .9) 0%, rgb(7 7 7 / .55) 26%, rgb(7 7 7 / .05) 44%, rgb(7 7 7 / .2) 58%, rgb(7 7 7 / .9) 74%, var(--bg) 88%),
+    radial-gradient(70% 45% at 0% 0%, rgb(255 140 60 / .22), transparent 70%); }
+.hero { position: relative; z-index: 1; }
+.stage { flex: 1; min-height: 34svh; }
+@media (min-width: 700px) {
+  .hero-video, .hero-shade { left: 50%; width: min(100%, 620px); transform: translateX(-50%); }
+  .hero-shade { box-shadow: 0 0 0 100vmax var(--bg); }
+}
+.opt.has-pic { padding-left: 10px; }
+.opt .mini { flex: none; width: 52px; height: 66px; border-radius: 12px; overflow: hidden; background: #111; box-shadow: inset 1px 1px 0 rgb(255 222 192 / .14); }
+.opt .mini img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.opt.has-pic .t { flex: 1; }
 .cta { display: flex; flex-direction: column; gap: 2px; align-items: flex-start; text-align: left; width: 100%; min-height: 70px; padding: 12px 64px 12px 26px; }
 .cta b { font-weight: 600; font-size: 18px; letter-spacing: -.01em; }
 .cta small { font-size: 13px; color: #6a5a4c; }
@@ -198,9 +201,21 @@ details.day[open] summary svg { transform: rotate(180deg); }
 .tabs button[aria-selected=true] { color: #1a0b00; font-weight: 600; background: linear-gradient(135deg, #ffe0c2, #ff9a4a 45%, var(--orange) 75%); box-shadow: inset 1px 1px 0 rgb(255 255 255 / .6); }
 .phase-info { margin: 14px 0 4px; font-size: 14px; color: var(--dim); }
 .phase-info b { color: var(--text); font-weight: 500; }
-.exi { list-style: none; display: grid; grid-template-columns: 104px 1fr; gap: 14px; padding: 14px 0; border-top: 1px solid var(--edge); }
-.exi .tile { width: 104px; height: 88px; border-radius: 16px; overflow: hidden; background: radial-gradient(90% 80% at 0% 0%, rgb(255 190 130 / .16), transparent 70%), linear-gradient(135deg, #1f1b18, #0b0b0b 70%); box-shadow: inset 1px 1px 0 rgb(255 222 192 / .14), inset -1px -1px 0 rgb(0 0 0 / .5); }
-.exi .tile svg { width: 100%; height: 100%; filter: drop-shadow(3px 5px 4px rgb(0 0 0 / .75)); }
+.exi { list-style: none; display: grid; grid-template-columns: 92px 1fr; gap: 14px; padding: 14px 0; border-top: 1px solid var(--edge); }
+.exi.noclip { grid-template-columns: 1fr; }
+/* clip of Boris doing exactly this move; plays only while on screen */
+.tile { position: relative; display: block; width: 92px; aspect-ratio: 2 / 3; padding: 0; border: 0; border-radius: 14px; overflow: hidden; cursor: pointer; background: #111; box-shadow: inset 0 0 0 1px rgb(255 222 192 / .14); }
+.tile video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tile .zoom { position: absolute; right: 6px; bottom: 6px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: rgb(0 0 0 / .55); color: #fff; }
+.tile .zoom svg { width: 12px; height: 12px; }
+/* full-size viewer */
+dialog.viewer { padding: 0; border: 0; background: transparent; max-width: min(92vw, 420px); width: 100%; }
+dialog.viewer::backdrop { background: rgb(0 0 0 / .93); }
+.viewer video { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 20px; display: block; background: #111; }
+.viewer .bar2 { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; color: #f4f4f4; }
+.viewer .bar2 b { font-weight: 500; font-size: 17px; }
+.viewer .bar2 a { color: var(--dim); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.viewer .x { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgb(0 0 0 / .6); color: #fff; font-size: 22px; line-height: 1; cursor: pointer; }
 .exi .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
 .exi .nm { font-weight: 500; line-height: 1.25; }
 .exi .ds { color: var(--orange); font-weight: 600; white-space: nowrap; font-size: 15px; }
@@ -223,7 +238,7 @@ details.day[open] summary svg { transform: rotate(180deg); }
 .legal-note { margin: 14px 0 0; font-size: 12px; color: #6f6f6f; line-height: 1.5; }
 .legal-note a { color: #9a9a9a; text-decoration: underline; text-underline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
-@media (prefers-reduced-motion: reduce) { .anim .quote .w, .anim .stage svg, .anim .rest > * { opacity: 1; transform: none; filter: none; } }
+@media (prefers-reduced-motion: reduce) { .anim .quote .w, .anim .rest > * { opacity: 1; transform: none; filter: none; } }
 </style>
 </head>
 <body>
@@ -236,17 +251,18 @@ details.day[open] summary svg { transform: rotate(180deg); }
   <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z" fill="currentColor"/></symbol>
+  <symbol id="i-zoom" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
 <!-- ============ LANDING (one screen) ============ -->
 <div id="home">
+  <video class="hero-video" src="/clips/hero.mp4" poster="/clips/hero.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+  <div class="hero-shade"></div>
   <main class="hero anim" id="hero">
     <h1 class="quote" id="quote">Get your full workout plan to unlock your first skill</h1>
 
-    <div class="stage" aria-hidden="true">
-      <svg class="fig" data-fig="lsitdip" viewBox="24 10 76 88"></svg>
-    </div>
+    <div class="stage" aria-hidden="true"></div>
 
     <div class="rest">
       <button class="btn white cta" data-start><b>Get my free plan</b><small>Less than 2 minutes</small><svg><use href="#i-arrow"/></svg></button>
@@ -324,7 +340,12 @@ details.day[open] summary svg { transform: rotate(180deg); }
 <!-- ============ READY ============ -->
 <div id="ready" hidden><div class="app" id="readyIn"></div></div>
 
-<script src="/figures.js"></script>
+<dialog class="viewer" id="viewer" aria-label="Exercise video">
+  <video muted loop playsinline></video>
+  <button class="x" type="button" aria-label="Close">×</button>
+  <div class="bar2"><b></b><a target="_blank" rel="noopener">Full video on YouTube</a></div>
+</dialog>
+
 <script>
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -332,7 +353,11 @@ const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "
 const buzz = () => navigator.vibrate?.(8);
 const icon = (id) => `<svg aria-hidden="true"><use href="#i-${id}"/></svg>`;
 const screens = ["home", "quiz", "building", "ready"];
-const show = (id) => { for (const s of screens) $("#" + s).hidden = s !== id; scrollTo({ top: 0, behavior: "instant" }); };
+const show = (id) => {
+  for (const s of screens) $("#" + s).hidden = s !== id;
+  scrollTo({ top: 0, behavior: "instant" });
+  const hv = $(".hero-video"); if (id === "home") hv.play().catch(() => {}); else hv.pause();
+};
 
 /* ---------- headline: words rise in, wrapped in quotes ---------- */
 (() => {
@@ -370,10 +395,10 @@ const opt = (type, name, value, label, sub) => `
   <label class="opt surface"><input type="${type}" name="${name}" value="${value}">
     <span class="t">${esc(label)}${sub ? `<small>${esc(sub)}</small>` : ""}</span><span class="mk">${icon("check")}</span></label>`;
 
-const SKILL_FIG = { handstand: "hsfree", hspu: "hspu", oapu: "pushup", front_lever: "flfull", lsit: "lsit", lsit_hs: "crow" };
+const SKILL_PIC = { handstand: "freestanding-hold", hspu: "handstand-push-ups-wall", oapu: "one-arm-push-up", front_lever: "full-front-lever", lsit: "l-sit", lsit_hs: "l-sit-to-handstand-attempts" };
 $("#goals").innerHTML = Object.entries(SKILLS).map(([k, s]) => `
-  <label class="opt surface has-fig"><input type="radio" name="goal" value="${k}">
-    <span class="mini"><svg class="fig" data-fig="${SKILL_FIG[k]}" viewBox="0 0 120 100"></svg></span>
+  <label class="opt surface has-pic"><input type="radio" name="goal" value="${k}">
+    <span class="mini"><img src="/clips/${SKILL_PIC[k]}.jpg" alt="" loading="lazy" width="52" height="66"></span>
     <span class="t">${esc(s.name)}</span><span class="mk">${icon("check")}</span></label>`).join("");
 $("#kit").innerHTML = KIT.map(([v, l, s]) => opt("checkbox", "equipment", v, l, s)).join("");
 $("#weak").innerHTML = WEAK.map(([v, l, s]) => opt("checkbox", "weakSpots", v, l, s)).join("");
@@ -481,17 +506,45 @@ async function building(req, a) {
 }
 
 /* ---------- ready ---------- */
-const exList = (list) => `<ul class="exlist">${list.map((e) => `
-  <li class="exi">
-    <div class="tile"><svg class="fig" data-fig="${esc(e.name)}" viewBox="0 0 120 100" role="img" aria-label="How to do ${esc(e.name)}"></svg></div>
+// exercise name → clip file: "Clap push-ups (ladder)" → "clap-push-ups"
+let CLIPS = {};
+const clipsReady = fetch("/clips/manifest.json").then((r) => r.json()).then((m) => (CLIPS = m)).catch(() => {});
+const ALIAS = { "one-arm-push-ups": "one-arm-push-up" };
+const clipFor = (name) => { const k = name.replace(/\s*\(ladder\)$/, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); const s = ALIAS[k] || k; return CLIPS[s] ? s : null; };
+
+const exList = (list) => `<ul class="exlist">${list.map((e) => { const c = clipFor(e.name); return `
+  <li class="exi${c ? "" : " noclip"}">
+    ${c ? `<button class="tile" type="button" data-clip="${c}" data-name="${esc(e.name)}" aria-label="Watch Boris do ${esc(e.name)}">
+      <video muted loop playsinline preload="none" poster="/clips/${c}.jpg" src="/clips/${c}.mp4"></video><span class="zoom">${icon("zoom")}</span></button>` : ""}
     <div>
       <span class="blk">${esc(e.block)}</span>
       <div class="top"><span class="nm">${esc(e.name)}</span><span class="ds">${esc(e.dose)}</span></div>
       <p class="cue">${esc(e.cue)}</p>
       ${e.easier ? `<p class="easy"><b>If too hard:</b> ${esc(e.easier)}</p>` : ""}
-      ${e.video ? `<a href="https://www.youtube.com/shorts/${esc(e.video)}" target="_blank" rel="noopener">Watch Boris do it</a>` : ""}
     </div>
-  </li>`).join("")}</ul>`;
+  </li>`; }).join("")}</ul>`;
+
+// play clips only while they're on screen: cheap on phones, no lag
+const io = new IntersectionObserver((es) => es.forEach((e) => {
+  const v = e.target;
+  if (e.isIntersecting) v.play().catch(() => {}); else v.pause();
+}), { threshold: .5 });
+
+// tap a clip → watch it big
+const viewer = $("#viewer"), vVideo = $("video", viewer);
+document.addEventListener("click", (e) => {
+  const t = e.target.closest(".tile");
+  if (!t) return;
+  const c = t.dataset.clip, m = CLIPS[c];
+  vVideo.src = `/clips/${c}.mp4`; vVideo.poster = `/clips/${c}.jpg`;
+  $(".bar2 b", viewer).textContent = t.dataset.name;
+  $(".bar2 a", viewer).href = `https://www.youtube.com/watch?v=${m.src}&t=${m.t}s`;
+  viewer.showModal(); vVideo.play().catch(() => {});
+});
+const closeViewer = () => { vVideo.pause(); viewer.close(); };
+$(".x", viewer).onclick = closeViewer;
+viewer.addEventListener("click", (e) => { if (e.target === viewer) closeViewer(); });
+viewer.addEventListener("close", () => vVideo.pause());
 
 function renderPhase(p, i) {
   const ph = p.phases[i];
@@ -502,10 +555,11 @@ function renderPhase(p, i) {
       <summary><span><small>${esc(s.day)}, every week</small><b>${esc(s.title)}</b></span>${icon("chev")}</summary>
       ${exList(s.exercises)}
     </details>`).join("");
-  Figures.scan($("#sessions"));
+  $$("#sessions .tile video").forEach((v) => io.observe(v));
 }
 
-function renderReady(qs, p) {
+async function renderReady(qs, p) {
+  await clipsReady;
   const ph = p.phases[0];
   const skill = SKILLS[p.skill]?.name ?? "Your skill";
   const pdf = `/api/pdf?${qs}`;
@@ -547,7 +601,6 @@ function renderReady(qs, p) {
 }
 
 /* ---------- boot ---------- */
-Figures.scan();
 show("home");
 const saved = new URLSearchParams(location.search);
 if (saved.has("goal")) fetch(`/api/plan?${saved}`).then((r) => (r.ok ? r.json() : null))
