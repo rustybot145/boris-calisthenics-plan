@@ -7,6 +7,7 @@
 <link rel="preload" href="/fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#070707">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23070707%22/%3E%3Ctext%20x%3D%2232%22%20y%3D%2246%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2240%22%20fill%3D%22%23ffd2ad%22%20text-anchor%3D%22middle%22%3EB%3C/text%3E%3C/svg%3E">
 <title>Boris Calisthenics: Free 9-Week Skill Plan</title>
 <meta name="description" content="Get your full workout plan to unlock your first calisthenics skill. Six quick questions, every set sized to your numbers, built from Boris's tutorials. Free.">
 <style>
@@ -64,8 +65,8 @@ em { font-style: italic; }
 
 /* ---------- landing ---------- */
 #home { position: relative; min-height: 100svh; overflow: hidden; display: flex; flex-direction: column; }
-.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; opacity: 0; scale: 1.06; transition: opacity 1.4s ease, scale 2.6s var(--out); }
-.hero-video.ready { opacity: 1; scale: 1; }
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; scale: 1.06; transition: scale 2.6s var(--out); }
+.hero-video.ready { scale: 1; }
 .shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgb(7 7 7 / .72) 0%, rgb(7 7 7 / .1) 18%, rgb(7 7 7 / .15) 30%, rgb(7 7 7 / .7) 50%, var(--bg) 74%); }
 #home .site { position: relative; z-index: 2; }
 /* warm light beaming down from the top-left corner */
@@ -78,7 +79,7 @@ em { font-style: italic; }
 .hero { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; max-width: 560px; margin: 0 auto; padding: 0 var(--gut) calc(26px + env(safe-area-inset-bottom)); }
 .hero h1 { font-size: clamp(2.15rem, 9.4vw, 3.4rem); margin: 14px 0 14px; }
 .hero h1 em { color: var(--ink); }
-.hero .btn { margin-top: 24px; }
+.hero .cta { margin-top: 24px; }
 .hero .fine { margin-top: 12px; }
 .facts { list-style: none; margin: 26px 0 0; padding: 0; border-top: 1px solid var(--line); }
 .facts li { display: flex; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: .875rem; color: #d6d2cc; }
@@ -163,8 +164,8 @@ em { font-style: italic; }
 .sect > h2 { font-size: 1.75rem; margin-bottom: 14px; }
 
 .tabs { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
-.tabs button { position: relative; min-width: 0; padding: 12px 4px 13px; border: 0; background: none; color: var(--dim); font-size: .875rem; font-weight: 500; cursor: pointer; }
-.tabs button small { display: block; margin-top: 3px; overflow: hidden; font-size: .75rem; font-weight: 400; color: var(--dim); white-space: nowrap; text-overflow: ellipsis; }
+.tabs button { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-width: 0; padding: 12px 4px 13px; border: 0; background: none; color: var(--dim); font-size: .875rem; font-weight: 500; cursor: pointer; }
+.tabs button small { display: block; margin-top: 3px; font-size: .75rem; font-weight: 400; line-height: 1.3; color: var(--dim); text-wrap: balance; }
 .tabs button[aria-selected=true] { color: var(--ink); }
 .tabs button[aria-selected=true]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--ink); }
 .phase-info { margin: 16px 0 6px; font-size: .875rem; color: var(--mute); }
@@ -246,7 +247,7 @@ details.day[open] .exi:nth-child(n+4) { animation-delay: .12s; }
 #home .btn { isolation: isolate; background: var(--ink); box-shadow: none; }
 #home .btn::before { content: ""; position: absolute; z-index: -1; inset: 0 -40% 0 0; background: linear-gradient(100deg, var(--warm), transparent 38%); animation: warm 3.2s ease-in-out 1.4s infinite; }
 .cta { position: relative; }
-.cta::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 52px; border-radius: 999px; box-shadow: -18px -6px 58px -12px rgb(255 122 40 / .95); animation: breathe 3.2s ease-in-out 1.4s infinite; }
+.cta::before { content: ""; position: absolute; pointer-events: none; top: 0; left: 0; right: 0; height: 52px; border-radius: 999px; box-shadow: -18px -6px 58px -12px rgb(255 122 40 / .95); animation: breathe 3.2s ease-in-out 1.4s infinite; }
 #home .btn::after { animation: sweep 3.2s ease-in-out 1.4s infinite; }
 #home .btn svg { animation: nudge 3.2s var(--out) 1.4s infinite; }
 /* transform and opacity only, so the phone's GPU does the work and nothing repaints */
@@ -255,7 +256,7 @@ details.day[open] .exi:nth-child(n+4) { animation-delay: .12s; }
 @keyframes nudge { 0%, 55%, 100% { transform: none; } 70% { transform: translateX(5px); } 85% { transform: translateX(-1px); } }
 @keyframes sweep { 0% { transform: translateX(-110%); } 30%, 100% { transform: translateX(110%); } }
 
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .hero-video { opacity: 1; scale: 1; } .reveal { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .hero-video { scale: 1; } .reveal { opacity: 1; transform: none; } }
 </style>
 </head>
 <body>
