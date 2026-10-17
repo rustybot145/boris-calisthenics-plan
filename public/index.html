@@ -4,323 +4,302 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070707">
-<title>Free Calisthenics Plan: Unlock Your First Skill</title>
-<meta name="description" content="Get a full workout plan to unlock your first calisthenics skill. Free, in less than 2 minutes.">
+<title>Boris Calisthenics: Free 9-Week Skill Plan</title>
+<meta name="description" content="Get your full workout plan to unlock your first calisthenics skill. Six quick questions, every set sized to your numbers, built from Boris's tutorials. Free.">
 <style>
-@font-face { font-family: "Geist"; font-weight: 300; font-display: swap; src: url(/fonts/Geist-Light.ttf) format("truetype"); }
+@font-face { font-family: "Instrument Serif"; font-style: normal; font-display: swap; src: url(/fonts/InstrumentSerif-Regular.ttf) format("truetype"); }
+@font-face { font-family: "Instrument Serif"; font-style: italic; font-display: swap; src: url(/fonts/InstrumentSerif-Italic.ttf) format("truetype"); }
 @font-face { font-family: "Geist"; font-weight: 400; font-display: swap; src: url(/fonts/Geist-Regular.ttf) format("truetype"); }
 @font-face { font-family: "Geist"; font-weight: 500; font-display: swap; src: url(/fonts/Geist-Medium.ttf) format("truetype"); }
 @font-face { font-family: "Geist"; font-weight: 600; font-display: swap; src: url(/fonts/Geist-SemiBold.ttf) format("truetype"); }
-</style>
-<style>
+
+/* Boris Calisthenics: black and warm white. The footage brings the light; nothing else does. */
 :root {
   --bg: #070707;
-  --edge: rgb(255 255 255 / .08);
-  --edge-hi: rgb(255 255 255 / .14);
-  --lit: rgb(255 222 192 / .32);   /* top-left edge catching the light */
-  --text: #f4f4f4;
-  --dim: #8e8e8e;
-  --orange: #ff7a1a;
+  --panel: #0d0d0e;
+  --line: rgba(255, 255, 255, .09);
+  --line-2: rgba(255, 255, 255, .18);
+  --ink: #f4f1ec;
+  --mute: #9b9792;
+  --dim: #63605b;
+  --display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --body: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --gut: 22px;
+  --ease: cubic-bezier(.22, .68, .28, 1);
 }
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; min-height: 100svh; background: var(--bg); color: var(--text); font: 400 16px/1.55 "Geist", system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body { margin: 0; min-height: 100svh; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 [hidden] { display: none !important; }
-p { margin: 0 0 1em; }
-a { color: inherit; text-decoration: none; }
+p { margin: 0; }
+a { color: inherit; }
 button { font: inherit; color: inherit; }
-:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+::selection { background: var(--ink); color: #000; }
+:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 3px; border-radius: 2px; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 400; letter-spacing: -.015em; line-height: 1.02; text-wrap: balance; }
+em { font-style: italic; }
 
-/* ---------- the studio light: top-left, warm ---------- */
-.bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--bg); }
-.bg::before { content: ""; position: absolute; inset: 0;
-  background:
-    radial-gradient(75% 55% at 0% 0%, rgb(255 226 196 / .34), rgb(255 122 26 / .14) 38%, transparent 72%),
-    linear-gradient(128deg, rgb(255 200 150 / .10) 0%, rgb(255 140 60 / .05) 30%, transparent 52%); }
-.bg::after { content: ""; position: absolute; inset: 0;
-  background: linear-gradient(rgb(255 255 255 / .05) 1px, transparent 1px) 0 0 / 52px 52px, linear-gradient(90deg, rgb(255 255 255 / .05) 1px, transparent 1px) 0 0 / 52px 52px;
-  -webkit-mask-image: radial-gradient(90% 70% at 0% 0%, #000, transparent 75%); mask-image: radial-gradient(90% 70% at 0% 0%, #000, transparent 75%); }
+.eyebrow { display: block; font: 600 .72rem/1 var(--body); letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
+.lede { color: var(--mute); font-size: 1.0625rem; line-height: 1.6; max-width: 34ch; }
+.fine { font-size: .8125rem; color: var(--dim); }
+.fine a { color: var(--mute); text-decoration: none; border-bottom: 1px solid var(--line-2); }
 
-/* lit from the top left: bright upper-left, falling off to the lower right */
-.lit-text { background: linear-gradient(135deg, #ffffff 0%, #fff0e2 28%, #c4c0bc 62%, #6f6f6f 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-h1, h2, h3 { margin: 0; font-weight: 500; letter-spacing: -.035em; line-height: 1.03; text-wrap: balance; }
-
-.pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 6px; border-radius: 999px; font-size: 14px; color: #e4ded8;
-  background: linear-gradient(135deg, #2a221c, #121212 55%); box-shadow: inset 1px 1px 0 var(--lit), inset -1px -1px 0 rgb(0 0 0 / .6), 6px 10px 24px -12px rgb(0 0 0 / .9); }
-.pill b { padding: 2px 9px; border-radius: 999px; background: linear-gradient(135deg, #ffb27a, var(--orange) 60%); color: #1a0b00; font-weight: 600; font-size: 12px; }
-
-.btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 58px; padding: 0 26px; border-radius: 999px; border: 0; cursor: pointer; font-weight: 500; font-size: 17px; white-space: nowrap; overflow: hidden; transition: transform .12s ease, opacity .2s; }
-.btn:active { transform: scale(.97); }
-.btn:disabled { opacity: .35; cursor: not-allowed; transform: none; }
-.btn svg { width: 18px; height: 18px; flex: none; }
-.btn.white { color: #0a0a0a; background: linear-gradient(135deg, #ffffff 0%, #f6efe8 45%, #d6cfc9 100%);
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 rgb(0 0 0 / .12), -6px -8px 26px -12px rgb(255 170 100 / .7), 10px 16px 34px -10px rgb(0 0 0 / .85); }
-.btn.white::after { content: ""; position: absolute; inset: -20% auto -20% -40%; width: 30%; transform: skewX(-20deg);
-  background: linear-gradient(90deg, transparent, rgb(255 255 255 / .9), transparent); animation: shine 4.5s ease-in-out 1.2s infinite; }
-@keyframes shine { 0%, 70% { left: -40%; } 100% { left: 130%; } }
-.btn.dark { color: var(--text); background: linear-gradient(135deg, #222, #101010 60%); box-shadow: inset 1px 1px 0 var(--lit), inset -1px -1px 0 rgb(0 0 0 / .6); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 28px; border: 1px solid var(--ink); border-radius: 999px; background: var(--ink); color: #000; font: 600 .975rem/1 var(--body); letter-spacing: .005em; text-decoration: none; cursor: pointer; transition: transform .25s var(--ease), background-color .2s, opacity .2s; }
+.btn:active { transform: scale(.98); }
+.btn:disabled { opacity: .3; cursor: not-allowed; transform: none; }
+.btn svg { width: 17px; height: 17px; flex: none; }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line-2); }
 .btn.block { display: flex; width: 100%; }
 
-/* ---------- landing: one screen ---------- */
-#home { position: relative; min-height: 100svh; overflow: hidden; }
-.hero { min-height: 100svh; max-width: 560px; margin: 0 auto; padding: calc(30px + env(safe-area-inset-top)) 22px calc(22px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; }
-.quote { font-size: clamp(36px, 10.2vw, 60px); line-height: 1.05; letter-spacing: -.035em; font-weight: 500; color: #f4ede6; margin: 0; }
-.quote .q { color: var(--orange); }
-.quote .w { display: inline-block; }
-.anim .quote .w { opacity: 0; filter: blur(8px); transform: translateY(.35em); animation: rise .8s cubic-bezier(.2, .7, .2, 1) forwards; animation-delay: calc(var(--i) * 75ms + 120ms); }
-@keyframes rise { to { opacity: 1; filter: blur(0); transform: none; } }
+.site { display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 var(--gut); }
+.mark { font: 400 1.35rem/1 var(--display); letter-spacing: -.01em; text-decoration: none; }
+.site a.ig { font-size: .8125rem; color: var(--mute); text-decoration: none; }
 
-/* Boris pressing to handstand, full-screen behind the offer. Shaded top and bottom so the text reads. */
-.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; z-index: 0; }
-.hero-shade { position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: linear-gradient(180deg, rgb(7 7 7 / .9) 0%, rgb(7 7 7 / .55) 26%, rgb(7 7 7 / .05) 44%, rgb(7 7 7 / .2) 58%, rgb(7 7 7 / .9) 74%, var(--bg) 88%),
-    radial-gradient(70% 45% at 0% 0%, rgb(255 140 60 / .22), transparent 70%); }
-.hero { position: relative; z-index: 1; }
-.stage { flex: 1; min-height: 34svh; }
-@media (min-width: 700px) {
-  .hero-video, .hero-shade { left: 50%; width: min(100%, 620px); transform: translateX(-50%); }
-  .hero-shade { box-shadow: 0 0 0 100vmax var(--bg); }
+/* ---------- landing ---------- */
+#home { position: relative; min-height: 100svh; overflow: hidden; display: flex; flex-direction: column; }
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; opacity: 0; transition: opacity 1.2s ease; }
+.hero-video.ready { opacity: 1; }
+.shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgb(7 7 7 / .72) 0%, rgb(7 7 7 / .1) 18%, rgb(7 7 7 / .15) 30%, rgb(7 7 7 / .7) 50%, var(--bg) 74%); }
+#home .site { position: relative; z-index: 2; }
+.hero { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; max-width: 560px; margin: 0 auto; padding: 0 var(--gut) calc(26px + env(safe-area-inset-bottom)); }
+.hero h1 { font-size: clamp(2.6rem, 11.5vw, 4.4rem); margin: 14px 0 14px; }
+.hero h1 em { color: var(--ink); }
+.hero .btn { margin-top: 24px; }
+.hero .fine { margin-top: 12px; }
+.facts { list-style: none; margin: 26px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.facts li { display: flex; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: .9375rem; color: #d6d2cc; }
+.facts li span { flex: none; width: 22px; font: italic 400 1.05rem/1.35 var(--display); color: var(--dim); }
+.hero .foot { display: flex; justify-content: space-between; gap: 16px; margin-top: 18px; }
+@media (min-width: 720px) {
+  .hero-video, .shade { left: 50%; width: min(100%, 640px); transform: translateX(-50%); }
+  .shade { box-shadow: 0 0 0 100vmax var(--bg); }
 }
-.cta { display: flex; flex-direction: column; gap: 2px; align-items: flex-start; text-align: left; width: 100%; min-height: 70px; padding: 12px 64px 12px 26px; }
-.cta b { font-weight: 600; font-size: 18px; letter-spacing: -.01em; }
-.cta small { font-size: 13px; color: #6a5a4c; }
-.cta svg { position: absolute; right: 12px; top: 50%; width: 46px; height: 46px; padding: 13px; margin-top: -23px; border-radius: 50%; background: #0a0a0a; color: #fff; }
-.perks { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; }
-.perks li { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; color: #d8d1cb; line-height: 1.4; }
-.perks svg { width: 19px; height: 19px; flex: none; color: var(--orange); margin-top: 1px; }
-.proof { display: flex; align-items: center; gap: 10px; margin: 20px 0 0; padding-top: 16px; border-top: 1px solid var(--edge); font-size: 13px; color: var(--dim); }
-.proof i { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, #2a221c, #121212); box-shadow: inset 1px 1px 0 var(--lit); }
-.proof i svg { width: 12px; height: 12px; color: var(--orange); }
-.proof b { color: var(--text); font-weight: 500; }
-.anim .rest > * { opacity: 0; transform: translateY(12px); animation: up .7s cubic-bezier(.2, .7, .2, 1) forwards; }
-.anim .rest > *:nth-child(1) { animation-delay: calc(var(--n) * 75ms + 450ms); }
-.anim .rest > *:nth-child(2) { animation-delay: calc(var(--n) * 75ms + 560ms); }
-.anim .rest > *:nth-child(3) { animation-delay: calc(var(--n) * 75ms + 670ms); }
-@keyframes up { to { opacity: 1; transform: none; } }
+/* one entrance: the offer settles in once */
+.rise { animation: rise .9s var(--ease) both; }
+.rise.d2 { animation-delay: .12s; } .rise.d3 { animation-delay: .24s; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
 
-/* ---------- quiz / building / ready ---------- */
-.app { min-height: 100svh; max-width: 600px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; }
-.qbar { position: sticky; top: 0; z-index: 3; padding: 12px 20px 10px; margin: 0 -20px; background: rgb(7 7 7 / .72); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
-.qbar .row { display: flex; align-items: center; gap: 12px; height: 44px; }
-.icon-btn { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; border: 0; cursor: pointer; flex: none;
-  background: linear-gradient(135deg, #242424, #101010); box-shadow: inset 1px 1px 0 var(--lit), inset -1px -1px 0 rgb(0 0 0 / .6); }
-.icon-btn svg { width: 18px; height: 18px; }
-.bar { flex: 1; height: 6px; border-radius: 6px; background: #1a1a1a; overflow: hidden; }
-.bar i { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, #fff1e2, #ffb27a 40%, var(--orange)); box-shadow: 0 0 12px var(--orange); transition: width .3s ease; }
-.qnum { font-size: 13px; color: var(--dim); min-width: 30px; text-align: right; font-variant-numeric: tabular-nums; }
+/* ---------- quiz ---------- */
+.app { min-height: 100svh; width: 100%; max-width: 560px; margin: 0 auto; padding: 0 var(--gut); display: flex; flex-direction: column; }
+.qbar { position: sticky; top: 0; z-index: 3; margin: 0 calc(var(--gut) * -1); padding: 0 var(--gut); background: rgb(7 7 7 / .9); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.qbar .row { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.back { display: inline-flex; align-items: center; gap: 6px; margin-left: -6px; padding: 8px 6px; border: 0; background: none; color: var(--mute); font-size: .875rem; cursor: pointer; }
+.back svg { width: 16px; height: 16px; }
+.qnum { font-size: .8125rem; color: var(--dim); font-variant-numeric: tabular-nums; }
+.bar { height: 1px; background: var(--line); }
+.bar i { display: block; height: 1px; background: var(--ink); transition: width .35s var(--ease); }
 
-.step { padding: 22px 0 150px; animation: in .22s ease both; }
-.step.back-in { animation-name: in-back; }
-@keyframes in { from { opacity: 0; transform: translateX(16px); } }
-@keyframes in-back { from { opacity: 0; transform: translateX(-16px); } }
-.step h2 { font-size: clamp(32px, 8.4vw, 44px); margin-bottom: 10px; }
-.step .help { color: var(--dim); margin-bottom: 22px; }
+.step { padding: 30px 0 150px; animation: in .3s var(--ease) both; }
+@keyframes in { from { opacity: 0; transform: translateY(8px); } }
+.step h2 { font-size: clamp(2rem, 8.6vw, 2.7rem); }
+.step .help { margin: 12px 0 26px; color: var(--mute); max-width: 38ch; }
 
-/* surfaces: lit top-left edge, shadow bottom-right */
-.surface { background: linear-gradient(135deg, #1b1917, #0d0d0d 60%); box-shadow: inset 1px 1px 0 rgb(255 222 192 / .14), inset -1px -1px 0 rgb(0 0 0 / .5), 8px 12px 28px -18px rgb(0 0 0 / .9); }
-.opts { display: grid; gap: 10px; }
-.opt { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; padding: 14px 18px; border-radius: 18px; cursor: pointer; user-select: none; transition: transform .12s, box-shadow .2s; }
-.opt:active { transform: scale(.98); }
+.opts { display: grid; gap: 8px; }
+.opt { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 62px; padding: 14px 18px; border: 1px solid var(--line); border-radius: 14px; cursor: pointer; user-select: none; transition: border-color .15s, background-color .15s; }
+.opt:hover { border-color: var(--line-2); }
 .opt input { position: absolute; opacity: 0; pointer-events: none; }
-.opt .t { font-weight: 500; font-size: 17px; }
-.opt .t small { display: block; font-weight: 400; font-size: 14px; color: var(--dim); }
-.opt .mk { flex: none; width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid #3a3a3a; display: grid; place-items: center; transition: all .15s; }
-.opt input[type=checkbox] ~ .mk { border-radius: 8px; }
-.opt .mk svg { width: 14px; height: 14px; opacity: 0; transform: scale(.4); transition: all .18s cubic-bezier(.3, 1.6, .5, 1); color: #1a0b00; }
-.opt:has(input:checked) { background: linear-gradient(135deg, #2b1d12, #110d0a 65%); box-shadow: inset 0 0 0 1.5px var(--orange), inset 2px 2px 0 rgb(255 210 170 / .35), -4px -6px 22px -12px rgb(255 140 60 / .7), 8px 12px 28px -16px rgb(0 0 0 / .9); }
-.opt:has(input:checked) .mk { background: linear-gradient(135deg, #ffd2a8, var(--orange) 55%); border-color: var(--orange); }
-.opt:has(input:checked) .mk svg { opacity: 1; transform: none; }
-.opt:has(input:focus-visible) { outline: 2px solid var(--orange); outline-offset: 3px; }
+.opt .t { font-weight: 500; font-size: 1rem; line-height: 1.35; }
+.opt .t small { display: block; margin-top: 2px; font-weight: 400; font-size: .8438rem; color: var(--mute); }
+.opt .mk { flex: none; width: 22px; height: 22px; border: 1px solid var(--line-2); border-radius: 50%; display: grid; place-items: center; transition: background-color .15s, border-color .15s; }
+.opt input[type=checkbox] ~ .mk { border-radius: 6px; }
+.opt .mk svg { width: 12px; height: 12px; color: #000; opacity: 0; }
+.opt:has(input:checked) { border-color: var(--ink); background: rgb(255 255 255 / .03); }
+.opt:has(input:checked) .mk { background: var(--ink); border-color: var(--ink); }
+.opt:has(input:checked) .mk svg { opacity: 1; }
+.opt:has(input:focus-visible) { outline: 1.5px solid var(--ink); outline-offset: 3px; }
 
-.group { margin-bottom: 24px; }
-.group > b { display: block; font-weight: 500; margin-bottom: 10px; }
-.chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); gap: 8px; }
+.group { margin-bottom: 26px; }
+.group > b { display: block; margin-bottom: 10px; font-weight: 500; font-size: .9375rem; }
+.chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; }
 .chips.five { grid-template-columns: repeat(5, 1fr); }
 .chips.four { grid-template-columns: repeat(4, 1fr); }
 .chip { position: relative; cursor: pointer; user-select: none; }
 .chip input { position: absolute; opacity: 0; pointer-events: none; }
-.chip span { display: grid; place-items: center; height: 54px; padding: 0 6px; border-radius: 999px; text-align: center; line-height: 1.1; font-weight: 500; font-size: 16px; font-variant-numeric: tabular-nums; transition: transform .12s, background .15s;
-  background: linear-gradient(135deg, #1d1b19, #0e0e0e 60%); box-shadow: inset 1px 1px 0 rgb(255 222 192 / .16), inset -1px -1px 0 rgb(0 0 0 / .5); }
-.chip span.word { font-size: 13px; }
-.chip:active span { transform: scale(.94); }
-.chip input:checked + span { color: #1a0b00; font-weight: 600; background: linear-gradient(135deg, #ffe0c2, #ff9a4a 45%, var(--orange) 70%, #c94f00);
-  box-shadow: inset 1px 1px 0 rgb(255 255 255 / .7), -4px -6px 20px -10px rgb(255 170 100 / .8), 6px 10px 22px -10px rgb(0 0 0 / .9); }
-.chip input:focus-visible + span { outline: 2px solid var(--orange); outline-offset: 3px; }
+.chip span { display: grid; place-items: center; height: 50px; padding: 0 6px; border: 1px solid var(--line); border-radius: 999px; font-weight: 500; font-size: .9375rem; text-align: center; line-height: 1.1; font-variant-numeric: tabular-nums; transition: background-color .15s, border-color .15s, color .15s; }
+.chip span.word { font-size: .8125rem; }
+.chip:hover span { border-color: var(--line-2); }
+.chip input:checked + span { background: var(--ink); border-color: var(--ink); color: #000; }
+.chip input:focus-visible + span { outline: 1.5px solid var(--ink); outline-offset: 3px; }
+.note { margin-top: 14px; font-size: .875rem; color: var(--ink); }
 
-.field { width: 100%; height: 62px; padding: 0 22px; border-radius: 999px; border: 0; color: var(--text); font: 400 17px "Geist", sans-serif;
-  background: linear-gradient(135deg, #1b1917, #0d0d0d 60%); box-shadow: inset 1px 1px 0 rgb(255 222 192 / .16), inset -1px -1px 0 rgb(0 0 0 / .5); }
-.field:focus { outline: none; box-shadow: inset 0 0 0 1.5px var(--orange), 0 0 0 4px rgb(255 122 26 / .16); }
-.note { margin-top: 14px; color: var(--orange); font-weight: 500; }
+.dock { position: fixed; z-index: 4; left: 0; right: 0; bottom: 0; padding: 24px var(--gut) calc(16px + env(safe-area-inset-bottom)); background: linear-gradient(transparent, var(--bg) 38%); }
+.dock .btn { max-width: 516px; margin: 0 auto; }
 
-.dock { position: fixed; z-index: 4; left: 0; right: 0; bottom: 0; padding: 26px 20px calc(16px + env(safe-area-inset-bottom)); background: linear-gradient(transparent, var(--bg) 35%); }
-.dock .btn { max-width: 560px; margin: 0 auto; }
-
+/* ---------- building ---------- */
 #building .app { justify-content: center; padding-bottom: 60px; }
-#building h2 { font-size: clamp(40px, 11vw, 60px); margin-bottom: 28px; }
-.ticks { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-.ticks li { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; color: var(--dim); opacity: .4; transition: opacity .3s, color .3s; }
-.ticks li i { flex: none; width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid #3a3a3a; display: grid; place-items: center; transition: all .25s cubic-bezier(.3, 1.6, .5, 1); }
-.ticks li i svg { width: 13px; height: 13px; opacity: 0; color: #1a0b00; }
-.ticks li.on { opacity: 1; color: var(--text); }
-.ticks li.on i { background: linear-gradient(135deg, #ffd2a8, var(--orange) 55%); border-color: var(--orange); box-shadow: 0 0 14px var(--orange); }
+#building h2 { font-size: clamp(2.4rem, 10vw, 3.2rem); margin: 14px 0 28px; }
+.ticks { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.ticks li { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); color: var(--dim); transition: color .3s; }
+.ticks li i { flex: none; width: 20px; height: 20px; border: 1px solid var(--line-2); border-radius: 50%; display: grid; place-items: center; transition: background-color .25s, border-color .25s; }
+.ticks li i svg { width: 11px; height: 11px; color: #000; opacity: 0; }
+.ticks li.on { color: var(--ink); }
+.ticks li.on i { background: var(--ink); border-color: var(--ink); }
 .ticks li.on i svg { opacity: 1; }
 
-.ready { padding: 26px 0 40px; }
-.ready h1 { font-size: clamp(40px, 11vw, 60px); margin: 18px 0 18px; }
-.summary { border-radius: 22px; padding: 20px; }
-.summary h3 { font-size: 19px; margin-bottom: 6px; }
-.summary p { color: var(--dim); font-size: 15px; margin: 0; }
-.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 18px; border-top: 1px solid var(--edge); }
-.grid3 div { padding: 14px 6px 0; text-align: center; }
-.grid3 div + div { border-left: 1px solid var(--edge); }
-.grid3 b { display: block; font-size: 32px; font-weight: 500; letter-spacing: -.03em; line-height: 1.1; }
-.grid3 span { font-size: 12px; color: var(--dim); }
-.dlwrap { margin-top: 16px; }
-.dlwrap .btn { min-height: 62px; }
-.sent { text-align: center; color: var(--dim); font-size: 14px; margin: 12px 0 0; }
-.block-title { font-size: 28px; margin: 40px 0 14px; }
-.path { display: grid; gap: 10px; }
-.path > div { display: grid; grid-template-columns: 44px 1fr; gap: 2px 14px; padding: 16px; border-radius: 18px; }
-.path .num { grid-row: span 2; width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; font-weight: 600; color: var(--orange); background: #0d0d0d; box-shadow: inset 1px 1px 0 rgb(255 222 192 / .16); }
-.path b { font-weight: 500; }
-.path span { font-size: 14px; color: var(--dim); }
-details.day { margin-top: 10px; border-radius: 18px; }
-details.day summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 62px; padding: 12px 18px; }
-details.day summary::-webkit-details-marker { display: none; }
-details.day summary small { display: block; font-size: 13px; color: var(--dim); }
-details.day summary b { font-weight: 500; font-size: 18px; }
-details.day summary svg { width: 18px; height: 18px; flex: none; color: var(--dim); transition: transform .2s; }
-details.day[open] summary svg { transform: rotate(180deg); }
-.tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 5px; border-radius: 999px; margin-bottom: 4px; }
-.tabs button { min-height: 44px; border: 0; border-radius: 999px; background: none; color: var(--dim); font-weight: 500; font-size: 13px; line-height: 1.15; cursor: pointer; padding: 4px 6px; }
-.tabs button[aria-selected=true] { color: #1a0b00; font-weight: 600; background: linear-gradient(135deg, #ffe0c2, #ff9a4a 45%, var(--orange) 75%); box-shadow: inset 1px 1px 0 rgb(255 255 255 / .6); }
-.phase-info { margin: 14px 0 4px; font-size: 14px; color: var(--dim); }
-.phase-info b { color: var(--text); font-weight: 500; }
-.exi { list-style: none; padding: 14px 0; border-top: 1px solid var(--edge); }
-.exi .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-.exi .nm { font-weight: 500; line-height: 1.25; }
-.exi .ds { color: var(--orange); font-weight: 600; white-space: nowrap; font-size: 15px; }
-.exi .blk { display: block; font-size: 12px; color: var(--dim); margin-bottom: 2px; }
-.exi .cue, .exi .easy { margin: 5px 0 0; font-size: 14px; color: var(--dim); line-height: 1.4; }
-.exi .easy b { color: var(--text); font-weight: 500; }
-.exi .meta { display: flex; gap: 14px; align-items: center; margin-top: 7px; font-size: 13px; color: var(--dim); }
-.exi .meta a { color: var(--dim); text-decoration: underline; text-underline-offset: 3px; }
-.exlist { margin: 0; padding: 0 16px 4px; }
-.ex { list-style: none; margin: 0; padding: 0 18px 8px; }
-.ex li { display: grid; grid-template-columns: 1fr auto; gap: 2px 14px; padding: 13px 0; border-top: 1px solid var(--edge); }
-.ex .nm { font-weight: 500; }
-.ex .ds { color: var(--orange); font-weight: 600; text-align: right; white-space: nowrap; }
-.ex .cue, .ex .easy { grid-column: 1 / -1; font-size: 14px; color: var(--dim); }
-.ex .easy b { color: var(--text); font-weight: 500; }
-.ex a { grid-column: 1 / -1; font-size: 13px; color: var(--dim); text-decoration: underline; text-underline-offset: 3px; }
-.more { margin-top: 28px; padding: 20px; border-radius: 22px; }
-.more p { color: var(--dim); font-size: 15px; margin: 6px 0 16px; }
-.again { display: block; width: 100%; margin-top: 18px; padding: 14px; background: none; border: 0; color: var(--dim); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+/* ---------- plan ---------- */
+.ready { padding: 8px 0 40px; }
+.ready h1 { font-size: clamp(2.7rem, 12vw, 4rem); margin: 14px 0 16px; }
+.ready .intro { color: var(--mute); }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); margin: 26px 0 0; border-block: 1px solid var(--line); }
+.stats div { padding: 16px 0 14px; }
+.stats div + div { padding-left: 16px; border-left: 1px solid var(--line); }
+.stats b { display: block; font: 400 2.2rem/1 var(--display); }
+.stats span { font-size: .8125rem; color: var(--mute); }
+.level { margin-top: 14px; font-size: .875rem; color: var(--mute); }
+.level b { color: var(--ink); font-weight: 500; }
+.dl { margin-top: 24px; }
+.dl .fine { margin-top: 10px; text-align: center; }
 
-.legal-note { margin: 14px 0 0; font-size: 12px; color: #6f6f6f; line-height: 1.5; }
-.legal-note a { color: #9a9a9a; text-decoration: underline; text-underline-offset: 2px; }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
-@media (prefers-reduced-motion: reduce) { .anim .quote .w, .anim .rest > * { opacity: 1; transform: none; filter: none; } }
+.sect { margin-top: 52px; }
+.sect > h2 { font-size: 2.1rem; margin-bottom: 14px; }
+.path { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.path li { display: grid; grid-template-columns: 34px 1fr; gap: 2px 12px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.path .n { grid-row: span 2; font: italic 400 1.6rem/1 var(--display); color: var(--mute); }
+.path b { font-weight: 500; }
+.path span { font-size: .875rem; color: var(--mute); }
+
+.tabs { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
+.tabs button { position: relative; padding: 12px 0 13px; border: 0; background: none; color: var(--dim); font-size: .875rem; font-weight: 500; cursor: pointer; }
+.tabs button[aria-selected=true] { color: var(--ink); }
+.tabs button[aria-selected=true]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--ink); }
+.phase-info { margin: 16px 0 6px; font-size: .875rem; color: var(--mute); }
+.phase-info b { color: var(--ink); font-weight: 500; }
+
+details.day { border-bottom: 1px solid var(--line); }
+details.day summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 0; }
+details.day summary::-webkit-details-marker { display: none; }
+details.day summary small { display: block; font-size: .75rem; color: var(--dim); letter-spacing: .02em; }
+details.day summary b { font: 400 1.5rem/1.1 var(--display); }
+details.day summary svg { width: 16px; height: 16px; flex: none; color: var(--mute); transition: transform .2s; }
+details.day[open] summary svg { transform: rotate(180deg); }
+.exlist { list-style: none; margin: 0 0 10px; padding: 0; }
+.exi { padding: 14px 0 15px; border-top: 1px solid var(--line); }
+.exi .blk { display: block; margin-bottom: 3px; font-size: .6875rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.exi .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.exi .nm { font-weight: 500; line-height: 1.3; }
+.exi .ds { font-weight: 500; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.exi .cue, .exi .easy { margin-top: 5px; font-size: .875rem; color: var(--mute); line-height: 1.5; }
+.exi .easy b { color: #d6d2cc; font-weight: 500; }
+.exi .meta { display: flex; gap: 16px; margin-top: 8px; font-size: .8125rem; color: var(--dim); }
+.exi .meta a { color: var(--mute); text-decoration: none; border-bottom: 1px solid var(--line-2); }
+
+.again { margin-top: 14px; }
+.legal { margin-top: 26px; }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .hero-video { opacity: 1; } }
 </style>
 </head>
 <body>
-<div class="bg"></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z" fill="currentColor"/></symbol>
-  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
-<!-- ============ LANDING (one screen) ============ -->
+<!-- ============ LANDING ============ -->
 <div id="home">
   <video class="hero-video" src="/clips/hero.mp4" poster="/clips/hero.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
-  <div class="hero-shade"></div>
-  <main class="hero anim" id="hero">
-    <h1 class="quote" id="quote">Get your full workout plan to unlock your first skill</h1>
-
-    <div class="stage" aria-hidden="true"></div>
-
-    <div class="rest">
-      <button class="btn white cta" data-start><b>Get my free plan</b><small>Less than 2 minutes</small><svg><use href="#i-arrow"/></svg></button>
-      <ul class="perks">
-        <li><svg><use href="#i-ok"/></svg>Handstand, front lever, L-sit, one-arm push-up and more</li>
-        <li><svg><use href="#i-ok"/></svg>Every session written out: sets, reps, hold times</li>
-        <li><svg><use href="#i-ok"/></svg>100% free, no card, no account</li>
+  <div class="shade"></div>
+  <header class="site">
+    <a class="mark" href="/">Boris Calisthenics</a>
+    <a class="ig" href="https://www.instagram.com/boriscalisthenics_official/" target="_blank" rel="noopener">Instagram</a>
+  </header>
+  <main class="hero">
+    <div class="rise">
+      <span class="eyebrow">Free 9-week plan</span>
+      <h1>Get your full workout plan <em>to unlock your first skill.</em></h1>
+      <p class="lede">Six quick questions. Every set is sized to your numbers and built from Boris's own tutorials.</p>
+    </div>
+    <div class="rise d2">
+      <button class="btn block" data-start>Get my free plan <svg><use href="#i-arrow"/></svg></button>
+      <p class="fine" style="text-align:center">Less than 2 minutes.</p>
+    </div>
+    <div class="rise d3">
+      <ul class="facts">
+        <li><span>i.</span>Handstand, front lever, L-sit, one-arm push-up and more</li>
+        <li><span>ii.</span>Every session written out: sets, reps, rest</li>
+        <li><span>iii.</span>100% free. No card, no account</li>
       </ul>
-      <p class="proof"><i><svg><use href="#i-play"/></svg></i><span>Built from <b>Boris Calisthenics</b> tutorials, watched <b>600K+</b> times</span></p>
-      <p class="legal-note">Training guidance, not medical advice. <a href="/legal">Terms and privacy</a></p>
+      <div class="foot">
+        <p class="fine">Built from Boris's tutorials, watched 600K+ times.</p>
+        <p class="fine"><a href="/legal">Terms</a></p>
+      </div>
     </div>
   </main>
 </div>
 
 <!-- ============ QUIZ ============ -->
 <form id="quiz" class="app" hidden novalidate>
-  <div class="qbar"><div class="row">
-    <button type="button" class="icon-btn" id="back" aria-label="Back"><svg><use href="#i-back"/></svg></button>
+  <div class="qbar">
+    <div class="row">
+      <button type="button" class="back" id="back"><svg><use href="#i-back"/></svg>Back</button>
+      <span class="qnum" id="qnum"></span>
+    </div>
     <div class="bar"><i id="barFill"></i></div>
-    <span class="qnum" id="qnum"></span>
-  </div></div>
+  </div>
 
   <section class="step" data-step="goal">
-    <h2 class="lit-text">What do you want to learn?</h2>
+    <h2>What do you want <em>to learn?</em></h2>
     <p class="help">Pick one skill.</p>
     <div class="opts" id="goals"></div>
   </section>
 
   <section class="step" data-step="check" hidden>
-    <h2 class="lit-text" id="checkTitle">How far are you?</h2>
+    <h2 id="checkTitle">How far are you?</h2>
     <p class="help">Pick the hardest one you can already do. Your plan starts right after it.</p>
     <div class="opts" id="checks"></div>
   </section>
 
   <section class="step" data-step="numbers" hidden>
-    <h2 class="lit-text">Your numbers</h2>
-    <p class="help">Most clean reps in one set: full range, no swinging. A good guess is fine; every set in your plan is sized from these.</p>
+    <h2>Your <em>numbers</em></h2>
+    <p class="help">Most clean reps in one set: full range, no swinging. A good guess is fine. Every set in your plan is sized from these.</p>
     <div class="group"><b>Push-ups</b><div class="chips" data-chips="pushups"></div></div>
     <div class="group"><b>Pull-ups</b><div class="chips" data-chips="pullups"></div></div>
     <div class="group"><b>Dips</b><div class="chips" data-chips="dips"></div></div>
   </section>
 
   <section class="step" data-step="time" hidden>
-    <h2 class="lit-text">How much time?</h2>
+    <h2>How much <em>time?</em></h2>
     <p class="help">Pick what you'll actually stick to.</p>
     <div class="group"><b>Days a week</b><div class="chips five" data-chips="days"></div></div>
     <div class="group"><b>Minutes per session</b><div class="chips four" data-chips="minutes"></div></div>
   </section>
 
   <section class="step" data-step="kit" hidden>
-    <h2 class="lit-text">What do you have?</h2>
-    <p class="help">Pick everything you can train with.</p>
+    <h2>What can you <em>train with?</em></h2>
+    <p class="help">Pick everything you have.</p>
     <div class="opts" id="kit"></div>
     <p class="note" id="barNote" hidden>The front lever needs a pull-up bar.</p>
   </section>
 
   <section class="step" data-step="weak" hidden>
-    <h2 class="lit-text">What holds you back?</h2>
+    <h2>What holds you <em>back?</em></h2>
     <p class="help">Pick any, or skip. You'll get extra drills for these.</p>
     <div class="opts" id="weak"></div>
     <p class="note" id="err" role="alert" hidden></p>
   </section>
 
-  <div class="dock"><button type="submit" class="btn white block" id="next">Next</button></div>
+  <div class="dock"><button type="submit" class="btn block" id="next">Next</button></div>
 </form>
 
 <!-- ============ BUILDING ============ -->
 <div id="building" hidden aria-live="polite">
   <div class="app">
-    <h2 class="lit-text">Building your plan</h2>
+    <span class="eyebrow">One moment</span>
+    <h2>Building <em>your plan</em></h2>
     <ol class="ticks" id="ticks"></ol>
   </div>
 </div>
 
-<!-- ============ READY ============ -->
-<div id="ready" hidden><div class="app" id="readyIn"></div></div>
+<!-- ============ PLAN ============ -->
+<div id="ready" hidden>
+  <header class="site"><a class="mark" href="/">Boris Calisthenics</a><a class="ig" href="https://www.instagram.com/boriscalisthenics_official/" target="_blank" rel="noopener">Instagram</a></header>
+  <div class="app" id="readyIn"></div>
+</div>
 
 <script>
 const $ = (s, el = document) => el.querySelector(s);
@@ -329,24 +308,13 @@ const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "
 const buzz = () => navigator.vibrate?.(8);
 const icon = (id) => `<svg aria-hidden="true"><use href="#i-${id}"/></svg>`;
 const screens = ["home", "quiz", "building", "ready"];
+const hv = $(".hero-video");
+hv.addEventListener("playing", () => hv.classList.add("ready"), { once: true });
 const show = (id) => {
   for (const s of screens) $("#" + s).hidden = s !== id;
   scrollTo({ top: 0, behavior: "instant" });
-  const hv = $(".hero-video"); if (id === "home") hv.play().catch(() => {}); else hv.pause();
+  if (id === "home") hv.play().catch(() => {}); else hv.pause();
 };
-
-/* ---------- headline: words rise in, wrapped in quotes ---------- */
-(() => {
-  const h = $("#quote");
-  const words = h.textContent.trim().split(/\s+/);
-  h.setAttribute("aria-label", `"${words.join(" ")}"`);
-  h.innerHTML = [`<span class="w q" style="--i:0">“</span>`]
-    .concat(words.map((w, i) => `<span class="w" style="--i:${i + 1}">${esc(w)}</span>`))
-    .concat(`<span class="w q" style="--i:${words.length + 1}">”</span>`)
-    .join(" ").replace(/<\/span> <span class="w q" style="--i:\d+">”/, (m) => m.replace(" ", ""))
-    .replace(/(“<\/span>) /, "$1");
-  $("#hero").style.setProperty("--n", words.length + 2);
-})();
 
 /* Skill names and checks mirror plan.js */
 const SKILLS = {
@@ -368,12 +336,10 @@ const KIT = [["none", "Nothing", "Floor, a wall and a chair"], ["pullup_bar", "P
 const WEAK = [["strength", "Overall strength", "The basics still feel hard"], ["balance", "Balance", "Can't find the stack"], ["core", "Core", "Hips sag, back arches"], ["straight_arm", "Straight arms", "Elbows bend when it gets hard"]];
 
 const opt = (type, name, value, label, sub) => `
-  <label class="opt surface"><input type="${type}" name="${name}" value="${value}">
+  <label class="opt"><input type="${type}" name="${name}" value="${value}">
     <span class="t">${esc(label)}${sub ? `<small>${esc(sub)}</small>` : ""}</span><span class="mk">${icon("check")}</span></label>`;
 
-$("#goals").innerHTML = Object.entries(SKILLS).map(([k, s]) => `
-  <label class="opt surface"><input type="radio" name="goal" value="${k}">
-    <span class="t">${esc(s.name)}<small>${esc(s.sub)}</small></span><span class="mk">${icon("check")}</span></label>`).join("");
+$("#goals").innerHTML = Object.entries(SKILLS).map(([k, s]) => opt("radio", "goal", k, s.name, s.sub)).join("");
 $("#kit").innerHTML = KIT.map(([v, l, s]) => opt("checkbox", "equipment", v, l, s)).join("");
 $("#weak").innerHTML = WEAK.map(([v, l, s]) => opt("checkbox", "weakSpots", v, l, s)).join("");
 for (const [name, vals] of Object.entries(CHIPS)) {
@@ -402,16 +368,16 @@ const key = () => steps[step].dataset.step;
 
 function renderChecks() {
   const g = SKILLS[val("goal")];
-  $("#checkTitle").textContent = `Where are you with the ${g.name.toLowerCase()}?`;
+  $("#checkTitle").innerHTML = `Where are you with the <em>${esc(g.name.toLowerCase())}?</em>`;
   $("#checks").innerHTML = g.checks.map((c, i) => opt("radio", "check", i, c)).join("");
 }
-function render(dir = 1) {
+function render() {
   steps.forEach((s, i) => {
     s.hidden = i !== step;
-    if (i === step) { s.classList.toggle("back-in", dir < 0); s.style.animation = "none"; s.offsetHeight; s.style.animation = ""; }
+    if (i === step) { s.style.animation = "none"; s.offsetHeight; s.style.animation = ""; }
   });
   $("#barFill").style.width = ((step + 1) / steps.length) * 100 + "%";
-  $("#qnum").textContent = `${step + 1}/${steps.length}`;
+  $("#qnum").textContent = `${step + 1} of ${steps.length}`;
   $(".dock").hidden = AUTO.has(key()) && !VALID[key()]();
   sync();
 }
@@ -420,7 +386,7 @@ function sync() {
   $("#next").textContent = key() === "weak" ? "Build my plan" : "Next";
   $("#barNote").hidden = !(key() === "kit" && val("goal") === "front_lever" && all("equipment").length && !hasBar());
 }
-const go = (d) => { step += d; scrollTo({ top: 0, behavior: "instant" }); render(d); };
+const go = (d) => { step += d; scrollTo({ top: 0, behavior: "instant" }); render(); };
 
 form.addEventListener("input", sync);
 form.addEventListener("change", (e) => {
@@ -434,7 +400,7 @@ form.addEventListener("change", (e) => {
   if (n === "goal") {
     renderChecks();
     // the front lever needs a bar: tick it for them instead of blocking them at the equipment step
-    if (val("goal") === "front_lever") { const bar = form.querySelector("[name=equipment][value=pullup_bar]"); bar.checked = true; form.querySelector("[name=equipment][value=none]").checked = false; }
+    if (val("goal") === "front_lever") { form.querySelector("[name=equipment][value=pullup_bar]").checked = true; form.querySelector("[name=equipment][value=none]").checked = false; }
   }
   sync();
   if (AUTO.has(n) && key() === n) setTimeout(() => key() === n && go(1), 240);
@@ -464,7 +430,7 @@ form.addEventListener("submit", async (e) => {
     const j = await building(req, answers);
     history.replaceState(null, "", `/?${qs}`);
     renderReady(qs, j.plan);
-  } catch (x) {
+  } catch {
     show("quiz"); render();
     $("#err").textContent = "Your plan didn't build. Check your connection and try again.";
     $("#err").hidden = false;
@@ -474,71 +440,74 @@ form.addEventListener("submit", async (e) => {
 /* ---------- building ---------- */
 async function building(req, a) {
   show("building");
-  const lines = [`${SKILLS[a.goal].name} steps loaded`, "Level set from your numbers", `${a.days} sessions a week, ${a.minutes} min each`, "Easier versions added to every move"];
-  $("#ticks").innerHTML = lines.map((l) => `<li class="surface"><i>${icon("check")}</i>${esc(l)}</li>`).join("");
+  const lines = [`${SKILLS[a.goal].name} progression loaded`, "Sets sized to your numbers", `${a.days} sessions a week, ${a.minutes} minutes each`, "An easier version for every move"];
+  $("#ticks").innerHTML = lines.map((l) => `<li><i>${icon("check")}</i>${esc(l)}</li>`).join("");
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  for (const li of $$("#ticks li")) { await new Promise((r) => setTimeout(r, reduce ? 0 : 380)); li.classList.add("on"); buzz(); }
+  for (const li of $$("#ticks li")) { await new Promise((r) => setTimeout(r, reduce ? 0 : 360)); li.classList.add("on"); }
   const j = await req;
-  await new Promise((r) => setTimeout(r, reduce ? 0 : 300));
+  await new Promise((r) => setTimeout(r, reduce ? 0 : 280));
   return j;
 }
 
-/* ---------- ready ---------- */
+/* ---------- plan ---------- */
 const exList = (list) => `<ul class="exlist">${list.map((e) => `
   <li class="exi">
     <span class="blk">${esc(e.block)}</span>
     <div class="top"><span class="nm">${esc(e.name)}</span><span class="ds">${esc(e.dose)}</span></div>
     <p class="cue">${esc(e.cue)}</p>
     ${e.easier ? `<p class="easy"><b>If too hard:</b> ${esc(e.easier)}</p>` : ""}
-    <div class="meta">${e.rest ? `<span>${esc(e.rest)}</span>` : ""}${e.demo ? `<a href="https://www.youtube.com/watch?v=${encodeURIComponent(e.demo.id)}&amp;t=${+e.demo.t}s" target="_blank" rel="noopener">Watch Boris do it</a>` : ""}</div>
+    <div class="meta">${e.rest ? `<span>${esc(e.rest[0].toUpperCase() + e.rest.slice(1))}</span>` : ""}${e.demo ? `<a href="https://www.youtube.com/watch?v=${encodeURIComponent(e.demo.id)}&amp;t=${+e.demo.t}s" target="_blank" rel="noopener">Watch Boris do it</a>` : ""}</div>
   </li>`).join("")}</ul>`;
 
 function renderPhase(p, i) {
   const ph = p.phases[i];
   $$("#tabs button").forEach((b, j) => b.setAttribute("aria-selected", String(j === i)));
-  $("#phaseInfo").innerHTML = `<b>${esc(ph.name)}</b>. Move on when: ${esc(ph.moveOn)}`;
+  $("#phaseInfo").innerHTML = `<b>${esc(ph.name)}.</b> Move on when: ${esc(ph.moveOn)}`;
   $("#sessions").innerHTML = ph.sessions.map((s, j) => `
-    <details class="day surface"${j === 0 ? " open" : ""}>
+    <details class="day"${j === 0 ? " open" : ""}>
       <summary><span><small>${esc(s.day)}, every week</small><b>${esc(s.title)}</b></span>${icon("chev")}</summary>
       ${exList(s.exercises)}
     </details>`).join("");
 }
 
+const WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
 function renderReady(qs, p) {
   const ph = p.phases[0];
   const skill = SKILLS[p.skill]?.name ?? "Your skill";
   const pdf = `/api/pdf?${qs}`;
   $("#readyIn").innerHTML = `
     <div class="ready">
-      <span class="pill"><b>Ready</b>Your free plan</span>
-      <h1 class="lit-text">Your ${esc(skill.toLowerCase())} plan is ready</h1>
-      <div class="summary surface">
-        <h3>Level ${p.level}: ${esc(p.levelLabel)}</h3>
-        <p>${esc(p.intro)}</p>
-        <div class="grid3">
-          <div><b>${p.totalWeeks}</b><span>weeks</span></div>
-          <div><b>${ph.sessions.length}</b><span>days a week</span></div>
-          <div><b>${p.phases.length}</b><span>steps</span></div>
-        </div>
+      <span class="eyebrow">Your plan</span>
+      <h1>${esc(skill)}, <em>in ${WORDS[p.totalWeeks] ?? p.totalWeeks} weeks.</em></h1>
+      <p class="intro">${esc(p.intro)}</p>
+      <div class="stats">
+        <div><b>${p.totalWeeks}</b><span>weeks</span></div>
+        <div><b>${ph.sessions.length}</b><span>days a week</span></div>
+        <div><b>${p.phases.length}</b><span>steps</span></div>
       </div>
-      <div class="dlwrap">
-        <a class="btn white block" href="${pdf}" download="boris-plan.pdf">${icon("down")}Download my workouts</a>
-        <p class="sent">Your full 9 weeks as a PDF. Save it to your phone.</p>
+      <p class="level">Level ${p.level}: <b>${esc(p.levelLabel)}</b></p>
+      <div class="dl">
+        <a class="btn block" href="${pdf}" download="boris-plan.pdf">${icon("down")}Download the PDF</a>
+        <p class="fine">All 9 weeks. Save it to your phone.</p>
       </div>
 
-      <h2 class="lit-text block-title">Your 3 steps</h2>
-      <div class="path">${p.phases.map((x, i) => `
-        <div class="surface"><span class="num">${esc((x.name.match(/^Step (\d+)/) || [, i + 1])[1])}</span>
-        <b>${esc(x.name.replace(/^Step \d+: /, ""))}</b><span>Weeks ${esc(x.weeks)}. Move on when: ${esc(x.moveOn)}</span></div>`).join("")}</div>
+      <section class="sect">
+        <h2>The <em>three steps</em></h2>
+        <ol class="path">${p.phases.map((x, i) => `
+          <li><span class="n">${esc((x.name.match(/^Step (\d+)/) || [, i + 1])[1])}</span>
+          <b>${esc(x.name.replace(/^Step \d+: /, ""))}</b><span>Weeks ${esc(x.weeks)}. Move on when: ${esc(x.moveOn)}</span></li>`).join("")}</ol>
+      </section>
 
-      <h2 class="lit-text block-title">Your workouts</h2>
-      <div class="tabs surface" id="tabs" role="tablist">${p.phases.map((x, i) => `<button type="button" role="tab" data-ph="${i}">Weeks ${esc(x.weeks)}</button>`).join("")}</div>
-      <p class="phase-info" id="phaseInfo"></p>
-      <div id="sessions"></div>
+      <section class="sect">
+        <h2>Your <em>workouts</em></h2>
+        <div class="tabs" id="tabs" role="tablist">${p.phases.map((x, i) => `<button type="button" role="tab" data-ph="${i}">Weeks ${esc(x.weeks)}</button>`).join("")}</div>
+        <p class="phase-info" id="phaseInfo"></p>
+        <div id="sessions"></div>
+      </section>
 
-      <div class="dlwrap" style="margin-top:26px"><a class="btn white block" href="${pdf}" download="boris-plan.pdf">${icon("down")}Download all 9 weeks</a></div>
-      <button class="again" type="button" data-start>Make another plan</button>
-      <p class="legal-note">This plan is general training guidance, not medical advice. Check with a doctor before starting if you have an injury or health condition, and stop if something hurts. <a href="/legal">Terms and privacy</a></p>
+      <div class="dl"><a class="btn block" href="${pdf}" download="boris-plan.pdf">${icon("down")}Download all 9 weeks</a></div>
+      <button class="btn ghost block again" type="button" data-start>Make another plan</button>
+      <p class="fine legal">General training guidance, not medical advice. Check with a doctor first if you have an injury or health condition, and stop if something hurts. <a href="/legal">Terms and privacy</a></p>
     </div>`;
   show("ready");
   $("#tabs").onclick = (e) => { const b = e.target.closest("[data-ph]"); if (b) { buzz(); renderPhase(p, +b.dataset.ph); } };

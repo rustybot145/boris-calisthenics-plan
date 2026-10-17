@@ -25,5 +25,5 @@ npm test               # runs every skill × step × schedule through the plan e
 - `plan.js`: the plan engine. Exercises, progressions, sets/reps, "if too hard" options and move-on standards, taken from Boris's YouTube Shorts (video ids next to each entry). Grouped quiz answers → estimated maxes → level-appropriate exercises at ~60% of max, progressing each phase. Each exercise links to the exact moment Boris does it on YouTube. Also renders the PDF.
 - `api/`: the two serverless functions.
 - `public/index.html`: the whole frontend (landing, quiz, plan + download). `public/clips/hero.mp4`: the landing-page reel of Boris (cut from his own videos). `public/legal.html`: terms, health disclaimer and privacy.
-- `public/fonts/`: Geist (SIL Open Font License, see `OFL.txt`), self-hosted so no visitor data goes to third parties.
+- `public/fonts/`: Geist and Instrument Serif (SIL Open Font License, see `OFL.txt` / `OFL-InstrumentSerif.txt`), self-hosted so no visitor data goes to third parties.
 - `server.js`: local runner that mimics Vercel.

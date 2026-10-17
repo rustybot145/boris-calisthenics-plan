@@ -518,9 +518,9 @@ export function buildPlan(a) {
 const FONT = (f) => fileURLToPath(new URL(`./public/fonts/${f}`, import.meta.url));
 
 export function renderPdf(plan) {
-  const C = { bg: "#070707", card: "#151515", text: "#f4f4f4", dim: "#8e8e8e", lamp: "#ff7a1a", line: "#242424" };
+  const C = { bg: "#070707", card: "#121212", text: "#f4f1ec", dim: "#9b9792", lamp: "#e2d6c4", line: "#242424" };
   const doc = new PDFDocument({ size: "A4", margin: 44 });
-  doc.registerFont("display", FONT("Geist-SemiBold.ttf"));
+  doc.registerFont("display", FONT("InstrumentSerif-Regular.ttf"));
   doc.registerFont("body", FONT("Geist-Regular.ttf"));
   doc.registerFont("bold", FONT("Geist-SemiBold.ttf"));
   const chunks = [];
@@ -531,7 +531,7 @@ export function renderPdf(plan) {
 
   const X = 44, W = doc.page.width - 88, BOTTOM = doc.page.height - 60;
   const room = (h) => { if (doc.y + h > BOTTOM) doc.addPage(); };
-  const display = (t, size, color = C.text) => doc.font("display").fontSize(size).fillColor(color).text(t, X, doc.y, { width: W, lineGap: -size * 0.08, characterSpacing: -size * 0.02 });
+  const display = (t, size, color = C.text) => doc.font("display").fontSize(size).fillColor(color).text(t, X, doc.y, { width: W, lineGap: -size * 0.08, characterSpacing: -size * 0.005 });
   const body = (t, color = C.dim, size = 10, font = "body") => doc.font(font).fontSize(size).fillColor(color).text(t, X, doc.y, { width: W, lineGap: 2 });
   const gap = (n = 10) => { doc.y += n; };
   const rule = () => { doc.moveTo(X, doc.y).lineTo(X + W, doc.y).lineWidth(0.6).strokeColor(C.line).stroke(); };
@@ -541,7 +541,7 @@ export function renderPdf(plan) {
     const y = doc.y;
     doc.font("bold").fontSize(10.5).fillColor(C.text).text(e.name, X, y, { width: W - 110 });
     const afterName = doc.y;
-    doc.font("display").fontSize(11).fillColor(C.lamp).text(e.dose, X + W - 108, y, { width: 108, align: "right" });
+    doc.font("bold").fontSize(10).fillColor(C.lamp).text(e.dose, X + W - 108, y, { width: 108, align: "right" });
     doc.y = Math.max(afterName, y + 14);
     body(`${e.cue}${e.rest ? `  ${e.rest[0].toUpperCase()}${e.rest.slice(1)}.` : ""}`, C.dim, 8.5);
     if (e.easier) doc.font("bold").fontSize(8.5).fillColor(C.lamp).text("If too hard: ", X, doc.y, { continued: true }).font("body").fillColor(C.dim).text(e.easier);
