@@ -219,10 +219,11 @@ details.day[open] .exi:nth-child(n+4) { animation-delay: .12s; }
 .phase-info { animation: fade .4s ease both; }
 
 /* ---------- warm light through the quiz: comes in from the left, reflects off what you touch ---------- */
-#quiz::before, #building::before { content: ""; position: fixed; z-index: -1; pointer-events: none; top: -25vh; left: -55vw; width: 120vw; height: 120vh; background: radial-gradient(closest-side, rgb(255 122 40 / .24), rgb(255 122 40 / .08) 45%, transparent 76%); animation: lamp 9s ease-in-out infinite alternate; }
-#quiz::after, #building::after { content: ""; position: fixed; z-index: -1; pointer-events: none; inset: -10vh -30vw; background: linear-gradient(112deg, transparent 30%, rgb(255 150 70 / .07) 40%, transparent 52%); animation: beam 14s ease-in-out infinite alternate; }
-@keyframes lamp { 0% { opacity: .7; transform: translate3d(0, 0, 0) scale(1); } 55% { opacity: 1; } 100% { opacity: .85; transform: translate3d(5vw, 8vh, 0) scale(1.08); } }
-@keyframes beam { from { transform: translate3d(-8vw, 0, 0); } to { transform: translate3d(10vw, 0, 0); } }
+#quiz::before, #building::before { content: ""; position: fixed; z-index: -1; pointer-events: none; top: -25vh; left: -55vw; width: 120vw; height: 120vh; background: radial-gradient(closest-side, rgb(255 122 40 / .24), rgb(255 122 40 / .08) 45%, transparent 76%); animation: lamp 18s ease-in-out infinite; }
+#quiz::after, #building::after { content: ""; position: fixed; z-index: -1; pointer-events: none; top: 35vh; left: 30vw; width: 95vw; height: 75vh; background: radial-gradient(closest-side, rgb(255 105 30 / .17), rgb(255 105 30 / .05) 50%, transparent 78%); animation: drift 23s ease-in-out infinite; }
+/* two lights wander on different loops so the pattern never visibly repeats */
+@keyframes lamp { 0%, 100% { opacity: .75; transform: translate3d(0, 0, 0) scale(1); } 25% { opacity: 1; transform: translate3d(22vw, 18vh, 0) scale(1.1); } 50% { opacity: .85; transform: translate3d(38vw, -4vh, 0) scale(.95); } 75% { opacity: 1; transform: translate3d(8vw, 36vh, 0) scale(1.12); } }
+@keyframes drift { 0%, 100% { opacity: .6; transform: translate3d(0, 0, 0) scale(1); } 33% { opacity: 1; transform: translate3d(-40vw, 12vh, 0) scale(1.15); } 66% { opacity: .8; transform: translate3d(-10vw, -30vh, 0) scale(.9); } }
 @media (min-width: 720px) { #quiz::before, #building::before { left: calc(50vw - 640px); width: 820px; height: 900px; } }
 .bar i { background: linear-gradient(90deg, var(--amber), var(--warm)); box-shadow: 0 0 10px rgb(255 122 40 / .6); }
 #quiz h2 em, #building h2 em { color: var(--warm); }
@@ -238,6 +239,12 @@ details.day[open] .exi:nth-child(n+4) { animation-delay: .12s; }
 #quiz .btn:disabled { box-shadow: none; }
 #quiz .btn:disabled::after { animation: none; }
 .ticks li.on i { background: linear-gradient(135deg, var(--warm), var(--ink) 65%); box-shadow: -4px -2px 14px -4px rgb(255 122 40 / .6); }
+/* landing button: glow breathes, warm light slides across, shine passes, arrow nudges, all on one 3.2s beat */
+#home .btn { background-image: linear-gradient(100deg, var(--warm), var(--ink) 25%); background-size: 170% 100%; animation: breathe 3.2s ease-in-out 1.4s infinite; }
+#home .btn::after { animation: sweep 3.2s ease-in-out 1.4s infinite; }
+#home .btn svg { animation: nudge 3.2s var(--out) 1.4s infinite; }
+@keyframes breathe { 0%, 100% { background-position: 0% 0; box-shadow: -14px -4px 40px -16px rgb(255 122 40 / .7); } 50% { background-position: 45% 0; box-shadow: -18px -6px 58px -12px rgb(255 122 40 / .95); } }
+@keyframes nudge { 0%, 55%, 100% { transform: none; } 70% { transform: translateX(5px); } 85% { transform: translateX(-1px); } }
 @keyframes sweep { 0% { transform: translateX(-110%); } 30%, 100% { transform: translateX(110%); } }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .hero-video { opacity: 1; scale: 1; } .reveal { opacity: 1; transform: none; } }
