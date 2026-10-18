@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 import assert from "node:assert/strict";
 import { validate, fromQuery, buildPlan, renderPdf, levels, SKILLS } from "./plan.js";
 
@@ -69,6 +71,12 @@ assert.match(buildPlan({ ...base, goal: "front_lever", check: 2, pullups: 0 }).p
 assert.match(buildPlan({ ...base, goal: "front_lever", check: 1, pullups: 3 }).phases[0].name, /^Step 3: Advanced tuck/);
 // final step pads with "own it" phases
 assert.deepEqual(buildPlan({ ...base, goal: "oapu", check: 3 }).phases.map((x) => x.name.split(": ").slice(2).join()), ["", "own it", "polish it"]);
+
+// hero clips are cached for a week, so their links carry a content stamp: a new video must get a new link
+for (const f of ["hero.mp4", "hero.jpg"]) {
+  const v = createHash("md5").update(readFileSync(`public/clips/${f}`)).digest("hex").slice(0, 8);
+  assert.ok(readFileSync("public/index.html", "utf8").includes(`/clips/${f}?v=${v}`), `bump ?v= for ${f} in index.html to ${v}`);
+}
 
 const pdf = await renderPdf(buildPlan(base));
 assert.equal(pdf.subarray(0, 4).toString(), "%PDF");
